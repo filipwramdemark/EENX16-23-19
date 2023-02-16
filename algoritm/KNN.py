@@ -1,2 +1,6 @@
-print('valla är svårt')
-print('valla är svårt')
+import pandas as pd
+
+df = pd.read_excel(r'algoritm/Valladata.xlsx')
+print(df)
+
+
