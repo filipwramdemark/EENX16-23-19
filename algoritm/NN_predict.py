@@ -10,8 +10,7 @@ model = keras.models.load_model('algoritm/NN_model')
 def predict(X):
     X = np.array([X])
     y = model.predict(X)
-    ind = np.argpartition(y[0], -3)[-3:]
-    print(y)
+    ind = y[0].argsort()[-3:][::-1]
     return ind
 
-print(predict([0,0]))
+print(predict([0,-5]))
