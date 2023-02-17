@@ -13,9 +13,7 @@ data = pd.read_excel('algoritm/Valladata.xlsx')
 
 data = data.dropna(axis='columns')
 
-# d = {'Valla (Label)': [0,1,2,3,1,2,4,2,0,1], 'Temp': [10,9,8,-7,6,5,4,3,2,1]}
-# data = pd.DataFrame(data=d)
-
+# replace 'Snötyp:' and 'Valla (Label)' with 0,1,2,...
 snow_to_label = {}
 label_to_snow = {}
 
@@ -34,7 +32,6 @@ for i in data.index:
         label_to_wax[len(label_to_wax)] = data.at[i, 'Valla (Label)']
     
     data.at[i, 'Valla (Label)'] = wax_to_label[data.at[i, 'Valla (Label)']]
-
 
 
 # split into training and test set
@@ -56,9 +53,6 @@ num_classes = len(pd.Series(data['Valla (Label)']).unique())
 batch_size = 8
 epochs = 20
 
-# preprocessing
-
-
 # define the model
 model = Sequential()
 model.add(Dense(64, input_shape=(2,), activation = 'relu'))
@@ -77,16 +71,8 @@ fit_info = model.fit(train_features, train_labels,
            verbose = 1,
            validation_data = (test_features, test_labels))
 
-score = model.evaluate(test_features, test_labels, verbose=0)
+# score = model.evaluate(test_features, test_labels, verbose=0)
 
-print('Test loss: {}, Test accuracy {}'.format(score[0], score[1]))
+# print('Test loss: {}, Test accuracy {}'.format(score[0], score[1]))
 
-# predict
-
-X = np.array([[0,-5]])
-
-y=model.predict(X)
-
-wax = label_to_wax[np.argmax(y)]
-
-print(wax)
+model.save('algoritm/NN_model')
