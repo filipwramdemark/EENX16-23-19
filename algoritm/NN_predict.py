@@ -2,9 +2,14 @@
 import numpy as np
 import pandas as pd
 from tensorflow import keras
-from data_prep import label_to_wax
 
 model = keras.models.load_model('algoritm/NN_model')
+
+label_to_wax_df = pd.read_csv('algoritm/label_to_wax.csv', names=['Label', 'Wax'])
+
+label_to_wax = label_to_wax_df.to_dict(orient='Index')
+print(label_to_wax_df)
+print(label_to_wax)
 
 def predict(X):
     X = np.array([X])
