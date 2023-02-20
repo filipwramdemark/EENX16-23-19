@@ -1,17 +1,13 @@
 import numpy as np
-import copy
-import random
 import pandas as pd
-from collections import Counter
 from sklearn.model_selection import train_test_split
-from sklearn.utils import resample
-from joblib import dump
-
+import pickle
+from joblib import load, dump
 data = pd.read_csv('algoritm/Valladata_prep.csv')
 data = data.dropna(axis='columns')                      #Getting the data format
 # print(data) 
 train, test = train_test_split(data, test_size = 0.2, shuffle = True) #splitting the data into training data
-# print(data.iloc[0])
+
 
 
 
@@ -200,11 +196,10 @@ class TreeNode():
         self.child_nodes.append(ch_1)
 
         return self
-
+    
 tree = TreeNode() # create root node
 tree.learn(train, "Valla (Label)", min_node_size=10)
 def eval():
-
     y = test['Valla (Label)']
     x = test.drop(columns='Valla (Label)')
     log = Classification_eval()
@@ -220,4 +215,9 @@ def eval():
 
 
 dump(tree, 'algoritm/Decision_Tree.joblib')
+# pickle.dump(tree, open('algoritm/Decision_Tree.pickle', "wb"))
+# clf = load('algoritm/Decision_Tree2.joblib')
 
+data =  {'Snötyp:': [0], 'Snötemperatur:': [0]}
+testdata = pd.DataFrame.from_dict(data)
+guessedlabel = tree.predict(testdata.iloc[0])
