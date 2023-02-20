@@ -20,4 +20,4 @@ def predict(X):
 
     return wax
 
-print(predict([0,-5]))
+print(predict([0,5]))
