@@ -26,3 +26,7 @@ for i in data.index:
     data.at[i, 'Valla (Label)'] = wax_to_label[data.at[i, 'Valla (Label)']]
 
 data.to_csv('algoritm/Valladata_prep.csv', index=False)
+
+label_to_wax_df = pd.DataFrame.from_dict(label_to_wax, orient='index')
+
+label_to_wax_df.to_csv('algoritm/label_to_wax.csv', header=False)
