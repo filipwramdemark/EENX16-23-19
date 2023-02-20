@@ -61,7 +61,7 @@ model.add(Dense(num_classes, activation='softmax'))
 
 model.compile(
     loss = tf.keras.losses.SparseCategoricalCrossentropy(),
-    optimizer = tf.keras.optimizers.SGD(learning_rate = 0.1),
+    optimizer = tf.keras.optimizers.SGD(learning_rate = 0.3),
     metrics = ['accuracy'])
 
 # train the model
