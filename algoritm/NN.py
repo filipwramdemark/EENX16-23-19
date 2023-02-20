@@ -7,30 +7,9 @@ from keras.layers import Conv2D, MaxPooling2D
 from sklearn.model_selection import train_test_split
 
 # read the data
-data = pd.read_excel('algoritm/Valladata.xlsx')
+data = pd.read_csv('algoritm/Valladata_prep.csv')
 
 data = data.dropna(axis='columns')
-
-# replace 'Snötyp:' and 'Valla (Label)' with 0,1,2,...
-snow_to_label = {}
-label_to_snow = {}
-
-wax_to_label = {}
-label_to_wax = {}
-
-for i in data.index:
-    if data.at[i, 'Snötyp:'] not in snow_to_label:
-        snow_to_label[data.at[i, 'Snötyp:']] = len(snow_to_label)
-        label_to_snow[len(label_to_snow)] = data.at[i, 'Snötyp:']
-    
-    data.at[i, 'Snötyp:'] = snow_to_label[data.at[i, 'Snötyp:']]
-
-    if data.at[i, 'Valla (Label)'] not in wax_to_label:
-        wax_to_label[data.at[i, 'Valla (Label)']] = len(wax_to_label)
-        label_to_wax[len(label_to_wax)] = data.at[i, 'Valla (Label)']
-    
-    data.at[i, 'Valla (Label)'] = wax_to_label[data.at[i, 'Valla (Label)']]
-
 
 # split into training and test set
 train, test = train_test_split(data, test_size = 0.2, shuffle = True)
