@@ -3,6 +3,7 @@ import pandas as pd
 from sklearn.model_selection import train_test_split
 import pickle
 from joblib import load, dump
+import graphics as gp
 data = pd.read_csv('algoritm/Valladata_prep.csv')
 data = data.dropna(axis='columns')                      #Getting the data format
 # print(data) 
@@ -136,12 +137,37 @@ class TreeNode():
             elif data[self.split_parameter] >= self.split_value:
                 print(self.split_value)
                 return(self.child_nodes[1].predict(data))
-
-            
-    def print_childs(self):
+    def countnodes(self):
         if self.leaf_node:
             return(1)
-        return  (self.child_nodes[0].print_childs()) + (self.child_nodes[1].print_childs())
+        return(self.child_nodes[0].countnodes() + self.child_nodes[1].countnodes())
+
+
+            
+    def print_childs(self, win, wid, hei):
+        if self.leaf_node:
+            leafp1 = gp.Point(wid*2,950-hei)
+            leafp1 = gp.Point(0,950-hei+50)
+            leaf = gp.Rectangle(leafp1, leafp1)
+            leaf.setFill('green')
+            leaf.draw(win)
+            return self
+        if self.child_nodes[0]:
+            ch1p1 = gp.Point(wid/2,950-hei)
+            ch1p2 = gp.Point(0,950-hei+50)
+            ch1 = gp.Rectangle(ch1p1, ch1p2)
+            ch1.setFill('blue')
+            ch1.draw(win)
+        
+        if self.child_nodes[0]:
+
+            ch2p1 = gp.Point((wid -(wid/2)),950-hei)
+            ch2p2 = gp.Point(wid,950-hei+50)
+            ch2 = gp.Rectangle(ch2p1, ch2p2)
+            ch2.setFill('red')
+            ch2.draw(win)
+        
+        return  (self.child_nodes[0].print_childs(win, (wid/2), (hei-50)) and (self.child_nodes[1].print_childs(win, (wid/2), (hei-50))))
         
 
     def learn(self, data, label, min_node_size):
@@ -223,13 +249,17 @@ def eval():
 
 
 
-
-# pickle.dump(tree, open('algoritm/Decision_Tree.pickle', "wb"))
+win = gp.GraphWin("My Window", 1800, 950)
+tree.print_childs(win, 3600, 900)
+print(tree.countnodes())
+input('wait')
+win.close()
+pickle.dump(tree, open('algoritm/DecisionTree/Decision_Tree.pickle', "wb"))
 # clf = load('algoritm/Decision_Tree2.joblib')
-print(tree.print_childs())
+# print(tree.print_childs())
 data =  {'Snötyp:': [0], 'Snötemperatur:': [1]}
 testdata = pd.DataFrame.from_dict(data)
 guessedlabel = tree.predict(testdata.iloc[0])
-dump(tree, 'algoritm/Decision_Tree.joblib')
+# dump(tree, 'algoritm/Decision_Tree.joblib')
 # print(tree.child_nodes)
 tree.print_childs

@@ -14,7 +14,7 @@ train, test = train_test_split(data, test_size = 0.2, shuffle = True) #splitting
 X = train.drop(columns='Valla (Label)')
 y = train['Valla (Label)']
 
-model = DecisionTreeClassifier()
+model = DecisionTreeClassifier(criterion = 'gini', random_state = 100)
 model = model.fit(X, y)
 
 # # text_representation = tree.export_text(model)
@@ -34,7 +34,7 @@ a = tree.plot_tree(model,
 plt.show()
 
 # dump(model, 'algoritm/Decision_Tree.joblib')
-# print(metrics.classification_report(test.drop(columns='Valla (Label)'),
-#                                     test['Valla (Label)']))
+print(metrics.classification_report(test.drop(columns='Valla (Label)'),
+                                    test['Valla (Label)']))
 
 

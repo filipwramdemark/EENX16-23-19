@@ -3,9 +3,10 @@ import pandas as pd
 import pickle
 from matplotlib import pyplot as plt
 from sklearn import tree
+# from DecisionTree import TreeNode
 
-model = load('algoritm/Decision_Tree.joblib')
-# model = pickle.load(open('algoritm/DecisionTree/Decision_Tree.pickle', "rb"))
+# model = load('algoritm/DecisionTree/Decision_Tree.joblib')
+model = pickle.load(open('algoritm/DecisionTree/Decision_Tree.pickle', "rb"))
 label_to_wax_df = pd.read_csv('algoritm/label_to_wax.csv', names=['Label', 'Wax'])
 
 data =  {'Snötyp:': [0], 'Snötemperatur:': [0]}
