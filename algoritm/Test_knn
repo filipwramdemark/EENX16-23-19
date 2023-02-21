@@ -1,0 +1,86 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+import numpy as np
+from sklearn import metrics
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler 
+from sklearn.neighbors import KNeighborsClassifier  
+from sklearn.metrics import confusion_matrix  
+from sklearn import preprocessing
+from sklearn import utils
+
+
+# read the data
+data = pd.read_excel('algoritm/Valladata.xlsx')
+
+data = data.dropna(axis='columns')
+
+# replace 'Snötyp:' and 'Valla (Label)' with 0,1,2,...
+snow_to_label = {}
+label_to_snow = {}
+
+wax_to_label = {}
+label_to_wax = {}
+
+for i in data.index:
+    if data.at[i, 'Snötyp:'] not in snow_to_label:
+        snow_to_label[data.at[i, 'Snötyp:']] = len(snow_to_label)
+        label_to_snow[len(label_to_snow)] = data.at[i, 'Snötyp:']
+    
+    data.at[i, 'Snötyp:'] = snow_to_label[data.at[i, 'Snötyp:']]
+
+    if data.at[i, 'Valla (Label)'] not in wax_to_label:
+        wax_to_label[data.at[i, 'Valla (Label)']] = len(wax_to_label)
+        label_to_wax[len(label_to_wax)] = data.at[i, 'Valla (Label)']
+    
+    data.at[i, 'Valla (Label)'] = wax_to_label[data.at[i, 'Valla (Label)']]
+
+
+# split into training and test set
+train, test = train_test_split(data, test_size = 0.2, shuffle = True)
+
+train_labels = train['Valla (Label)']
+train_features = train.drop(columns = 'Valla (Label)')
+test_labels = test['Valla (Label)']
+test_features = test.drop(columns = 'Valla (Label)')
+
+train_features = np.asarray(train_features).astype(np.float32)
+test_features = np.asarray(test_features).astype(np.float32)
+
+train_labels = np.asarray(train_labels).astype(np.float32)
+test_labels = np.asarray(test_labels).astype(np.float32)
+
+
+st_x= StandardScaler()    
+train_features= st_x.fit_transform(train_features)    
+test_features= st_x.transform(test_features)
+
+
+KNN = KNeighborsClassifier(n_neighbors=3, metric='minkowski', p=2) 
+KNN.fit(train_features, train_labels)
+
+#predicting 
+predict_y = KNN.predict(test_features)
+print(predict_y)
+
+print("Accuracy:",metrics.accuracy_score(test_labels, predict_y))
+
+label_to_wax_df = pd.read_csv('algoritm/label_to_wax.csv', names=['Label', 'Wax'])
+
+def predict(X):
+    X = np.array([X])
+    y = KNN.predict(X)
+    ind = y[0].argsort()[-3:][::-1]
+    print(ind)
+    
+
+    wax = []
+    for i in ind:
+        wax.append(label_to_wax_df.at[i, 'Wax'])
+
+    return wax
+
+print(predict([1,-5]))
+
+
+
