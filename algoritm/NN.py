@@ -8,7 +8,6 @@ from sklearn.model_selection import train_test_split
 
 # read the data
 data = pd.read_csv('algoritm/Valladata_prep.csv')
-
 data = data.dropna(axis='columns')
 
 # split into training and test set
@@ -18,6 +17,15 @@ train_labels = train['Valla (Label)']
 train_features = train.drop(columns = 'Valla (Label)')
 test_labels = test['Valla (Label)']
 test_features = test.drop(columns = 'Valla (Label)')
+
+# normalize the data
+for df in [train_features, test_features]:
+    for col in train_features.columns:
+        df[col] = df[col] / df[col].abs().max()
+
+    df['Snötyp:'] = df['Snötyp:'] * 2
+
+print(train_features)
 
 train_features = np.asarray(train_features).astype(np.float32)
 test_features = np.asarray(test_features).astype(np.float32)
@@ -32,8 +40,8 @@ epochs = 20
 
 # define the model
 model = Sequential()
-model.add(Dense(64, input_shape=(2,), activation = 'relu'))
-model.add(Dense(64, activation = 'relu'))
+model.add(Dense(64, activation = 'relu', input_shape=(2,)))
+model.add(Dense(32, activation = 'relu'))
 model.add(Dense(num_classes, activation='softmax'))
 
 model.compile(
@@ -48,8 +56,8 @@ fit_info = model.fit(train_features, train_labels,
            verbose = 1,
            validation_data = (test_features, test_labels))
 
-# score = model.evaluate(test_features, test_labels, verbose=0)
+score = model.evaluate(test_features, test_labels, verbose=0)
 
-# print('Test loss: {}, Test accuracy {}'.format(score[0], score[1]))
+print('Test loss: {}, Test accuracy {}'.format(score[0], score[1]))
 
 model.save('algoritm/NN_model')
