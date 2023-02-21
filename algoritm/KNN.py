@@ -43,7 +43,7 @@ x_test= st_x.transform(x_test)
 
 
 #Running the classifier
-KNN = KNeighborsClassifier(n_neighbors=5, metric='minkowski', p=2)  
+KNN = KNeighborsClassifier(n_neighbors=3, metric='minkowski', p=2)  
 KNN.fit(x_train, y_train)
 #metric='minkowski'
 print(KNN)
@@ -54,16 +54,31 @@ print(predict_y)
 
 print("Accuracy:",metrics.accuracy_score(y_test, predict_y))
 
-confusion_matrix= metrics.confusion_matrix(y_test, predict_y)  
+#confusion_matrix= metrics.confusion_matrix(y_test, predict_y)  
 
-cm_display = metrics.ConfusionMatrixDisplay(confusion_matrix = confusion_matrix, display_labels = [False, True])
+#cm_display = metrics.ConfusionMatrixDisplay(confusion_matrix = confusion_matrix, display_labels = [False, True])
 
-cm_display.plot()
-plt.show()
-print('Accuracy:', metrics.accuracy_score(y_test, predict_y))
+#cm_display.plot()
+#plt.show()
+#print('Accuracy:', metrics.accuracy_score(y_test, predict_y))
 
 
+label_to_wax_df = pd.read_csv('algoritm/label_to_wax.csv', names=['Label', 'Wax'])
 
+def predict(X):
+    X = numpy.array([X])
+    y = KNN.predict(X)
+    ind = y[0].argsort()[-3:][::-1]
+    print(ind)
+    
+
+    wax = []
+    for i in ind:
+        wax.append(label_to_wax_df.at[i, 'Wax'])
+
+    return wax
+
+print(predict([0,-7]))
 #snowtemp = list(data['Snötemperatur:'])
 #print(snowtemp)
 #snowtype = list(data['Snötyp:'])
