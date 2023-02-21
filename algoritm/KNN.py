@@ -6,6 +6,8 @@ from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler 
 from sklearn.neighbors import KNeighborsClassifier  
 from sklearn.metrics import confusion_matrix  
+from sklearn import preprocessing
+from sklearn import utils
 
 
 import math
@@ -43,10 +45,18 @@ x_test= st_x.transform(x_test)
 
 
 #Running the classifier
-KNN = KNeighborsClassifier(n_neighbors=3, metric='minkowski', p=2)  
-KNN.fit(x_train, y_train)
+#KNN = KNeighborsClassifier(n_neighbors=3, metric='minkowski', p=2)  
+#KNN.fit(x_train, y_train)
 #metric='minkowski'
-print(KNN)
+#print(KNN)
+
+lab = preprocessing.LabelEncoder()
+y_transformed = lab.fit_transform(y_train)
+print(y_transformed)
+
+
+KNN = KNeighborsClassifier(n_neighbors=3, metric='minkowski', p=2) 
+KNN.fit(x_train, y_transformed)
 
 #predicting 
 predict_y = KNN.predict(x_test)
@@ -78,7 +88,7 @@ def predict(X):
 
     return wax
 
-print(predict([0,-7]))
+print(predict([1,-7]))
 #snowtemp = list(data['Snötemperatur:'])
 #print(snowtemp)
 #snowtype = list(data['Snötyp:'])
