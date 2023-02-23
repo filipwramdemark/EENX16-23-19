@@ -234,32 +234,5 @@ class TreeNode():
     
 tree = TreeNode() # create root node
 tree.learn(train, "Valla (Label)", min_node_size=10)
-def eval():
-    y = test['Valla (Label)']
-    x = test.drop(columns='Valla (Label)')
-    log = Classification_eval()
 
-    for i in range(x.shape[0]):
-        pred = tree.predict(x.iloc[i])
-        log.update(pred, y.iloc[i])
-            
-    print('accuarcy', log.accuracy())
-    print('precision', log.precision())
-    print('recall', log.recall())
-
-
-
-win = gp.GraphWin("My Window", 1800, 950)
-tree.print_childs(win, 3600, 900)
-print(tree.countnodes())
-input('wait')
-win.close()
 pickle.dump(tree, open('algoritm/DecisionTree/Decision_Tree.pickle', "wb"))
-# clf = load('algoritm/Decision_Tree2.joblib')
-# print(tree.print_childs())
-data =  {'Snötyp:': [0], 'Snötemperatur:': [1]}
-testdata = pd.DataFrame.from_dict(data)
-guessedlabel = tree.predict(testdata.iloc[0])
-# dump(tree, 'algoritm/Decision_Tree.joblib')
-# print(tree.child_nodes)
-tree.print_childs

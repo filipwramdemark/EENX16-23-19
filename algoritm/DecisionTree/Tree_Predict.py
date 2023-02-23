@@ -6,7 +6,7 @@ from matplotlib import pyplot as plt
 # import sys
 # sys.path.insert(0,"C:\Users\kwaid\OneDrive\Dokument\Repo\Valla\EENX16-23-19\algoritm\DecisionTree")
 # from DecisionTree import TreeNode
-# from Decisiontree import TreeNode
+from Decisiontree import TreeNode
 
 # model = load('algoritm/DecisionTree/Decision_Tree.joblib')
 model = pickle.load(open('algoritm/DecisionTree/Decision_Tree.pickle', "rb"))
