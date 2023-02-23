@@ -1,6 +1,10 @@
 from flask import Flask, render_template, request, redirect, url_for
+from algoritm.NN.NN_predict import predict
+import pandas as pd
 
 snow = ''
+
+snow_to_label_df = pd.read_csv('algoritm/snow_to_label')
 
 app = Flask(__name__)
 
@@ -26,7 +30,9 @@ def temp():
 
 @app.route('/temp', methods=['POST'])
 def temp_post():
-    T = request.form['text']
+    T = float(request.form['text'])
+    snow_label = 
+    wax_label = predict([snow, ])
     return T
 
 if __name__ == "__main__":
