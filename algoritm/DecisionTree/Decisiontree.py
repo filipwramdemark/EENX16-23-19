@@ -181,7 +181,7 @@ class TreeNode():
             ch2p1 = gp.Point(start,950-hei)
             ch2p2 = gp.Point(end,950-hei+50)
             ch2 = gp.Rectangle(ch2p1, ch2p2)
-            ch2.setFill('red')
+            ch2.setFill('blue')
             anchorPoint = ch2.getCenter()
             text = gp.Text(anchorPoint, f"{self.split_parameter}{'='}{self.split_value}")
             ch2.draw(win)
