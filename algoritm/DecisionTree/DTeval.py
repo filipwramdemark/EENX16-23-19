@@ -26,7 +26,7 @@ def eval():
 
 eval()
 win = gp.GraphWin("My Window", 1800, 950)
-tree.print_childs(win, 3600, 900)
+tree.print_childs(win, 1800, 900,'l', 0, 0)
 print(tree.countnodes())
 input('wait')
 win.close()
@@ -38,4 +38,4 @@ testdata = pd.DataFrame.from_dict(data)
 guessedlabel = tree.predict(testdata.iloc[0])
 # dump(tree, 'algoritm/Decision_Tree.joblib')
 # print(tree.child_nodes)
-tree.print_childs
+# tree.print_childs

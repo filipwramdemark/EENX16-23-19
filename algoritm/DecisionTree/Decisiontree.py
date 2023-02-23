@@ -7,7 +7,8 @@ import graphics as gp
 data = pd.read_csv('algoritm/Valladata_prep.csv')
 data = data.dropna(axis='columns')                      #Getting the data format
 # print(data) 
-train, test = train_test_split(data, test_size = 0.2, shuffle = True) #splitting the data into training data
+# train, test = train_test_split(data, test_size = 0.2, shuffle = True) #splitting the data into training data
+train = data
 # train = data
 
 
@@ -144,30 +145,49 @@ class TreeNode():
 
 
             
-    def print_childs(self, win, wid, hei):
+    def print_childs(self, win, wid, hei,s, start , end):
         if self.leaf_node:
-            leafp1 = gp.Point(wid*2,950-hei)
-            leafp1 = gp.Point(0,950-hei+50)
-            leaf = gp.Rectangle(leafp1, leafp1)
+            if s == 'l':
+                start = start
+                end = start + wid
+            else:
+                start =  end - wid
+                end = end 
+
+            leafp1 = gp.Point(start,950-hei)
+            leafp2 = gp.Point(end,950-hei+50)
+            leaf = gp.Rectangle(leafp1, leafp2)
             leaf.setFill('green')
+            anchorPoint = leaf.getCenter()
+            text = gp.Text(anchorPoint, f"{'label'}{'='}{self.classification}")
             leaf.draw(win)
+            text.draw(win)
             return self
-        if self.child_nodes[0]:
-            ch1p1 = gp.Point(wid/2,950-hei)
-            ch1p2 = gp.Point(0,950-hei+50)
+        elif s == 'l':
+            start = start
+            end = start + wid
+            ch1p1 = gp.Point(end,950-hei)
+            ch1p2 = gp.Point(start,950-hei+50)
             ch1 = gp.Rectangle(ch1p1, ch1p2)
             ch1.setFill('blue')
+            anchorPoint = ch1.getCenter()
+            text = gp.Text(anchorPoint, f"{self.split_parameter}{'='}{self.split_value}")
             ch1.draw(win)
+            text.draw(win)
         
-        if self.child_nodes[1]:
-
-            ch2p1 = gp.Point((wid -(wid/2)),950-hei)
-            ch2p2 = gp.Point(wid,950-hei+50)
+        elif s == 'r':
+            start =  end - wid
+            end = end 
+            ch2p1 = gp.Point(start,950-hei)
+            ch2p2 = gp.Point(end,950-hei+50)
             ch2 = gp.Rectangle(ch2p1, ch2p2)
             ch2.setFill('red')
+            anchorPoint = ch2.getCenter()
+            text = gp.Text(anchorPoint, f"{self.split_parameter}{'='}{self.split_value}")
             ch2.draw(win)
-        
-        return  (self.child_nodes[0].print_childs(win, (wid/2), (hei-50)) and (self.child_nodes[1].print_childs(win, (wid/2), (hei-50))))
+            text.draw(win)
+        # return (self.child_nodes[1].print_childs(win, (wid/2), (hei-50),'r',start,end))
+        return  (self.child_nodes[0].print_childs(win, (wid/2), (hei-50), 'r',start,end) and (self.child_nodes[1].print_childs(win, (wid/2), (hei-50),'l',start,end)))
         
 
     def learn(self, data, label, min_node_size):
