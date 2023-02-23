@@ -7,9 +7,9 @@ import graphics as gp
 data = pd.read_csv('algoritm/Valladata_prep.csv')
 data = data.dropna(axis='columns')                      #Getting the data format
 # print(data) 
-# train, test = train_test_split(data, test_size = 0.2, shuffle = True) #splitting the data into training data
-train = data
+train, test = train_test_split(data, test_size = 0.2, shuffle = True) #splitting the data into training data
 # train = data
+
 
 
 
@@ -132,11 +132,11 @@ class TreeNode():
         else:
 
             if data[self.split_parameter] < self.split_value:
-                print(self.split_value)
+                # print(self.split_value)
                 return(self.child_nodes[0].predict(data))
         
             elif data[self.split_parameter] >= self.split_value:
-                print(self.split_value)
+                # print(self.split_value)
                 return(self.child_nodes[1].predict(data))
     def countnodes(self):
         if self.leaf_node:
