@@ -1,31 +1,35 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect, url_for
 
-
-def cal(x):
-    return x + 1
+snow = ''
 
 app = Flask(__name__)
 
-@app.route("/", methods=['GET', 'POST'])
+@app.route('/', methods=['GET', 'POST'])
 def index():
     if request.method == 'POST':
         if request.form.get('action1') == 'Konstsnö':
-            x = cal(3)
-            return ("Swix V40")
+            global snow
+            snow = 'Konstsnö'
         elif  request.form.get('action2') == 'Nysnö':
-            x = cal(5)
-            return ("Swix KX75")
-        else:
-            pass # unknown
+            snow = 'Nysnö'
+        return redirect(url_for('temp'))
+        
     elif request.method == 'GET':
         return render_template('index.html')
     
-    return render_template("index.html")
+    return render_template('index.html')
 
-# @app.route("/test/")
-# def test():
-#     return "Hello! this is the main page <h1>HELLO</h1>"
+@app.route('/temp')
+def temp():
+    return render_template('temp.html')
+
+
+@app.route('/temp', methods=['POST'])
+def temp_post():
+    T = request.form['text']
+    return T
 
 if __name__ == "__main__":
     app.run()
+
 
