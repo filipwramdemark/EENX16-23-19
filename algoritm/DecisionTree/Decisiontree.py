@@ -159,7 +159,7 @@ class TreeNode():
             ch1.setFill('blue')
             ch1.draw(win)
         
-        if self.child_nodes[0]:
+        if self.child_nodes[1]:
 
             ch2p1 = gp.Point((wid -(wid/2)),950-hei)
             ch2p2 = gp.Point(wid,950-hei+50)

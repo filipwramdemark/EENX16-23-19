@@ -34,7 +34,7 @@ a = tree.plot_tree(model,
 plt.show()
 
 # dump(model, 'algoritm/Decision_Tree.joblib')
-print(metrics.classification_report(test.drop(columns='Valla (Label)'),
-                                    test['Valla (Label)']))
+# print(metrics.classification_report(test.drop(columns='Valla (Label)'),
+#                                     test['Valla (Label)']))
 
 
