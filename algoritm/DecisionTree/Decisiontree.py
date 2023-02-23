@@ -9,7 +9,7 @@ data = data.dropna(axis='columns')                      #Getting the data format
 # print(data) 
 train, test = train_test_split(data, test_size = 0.2, shuffle = True) #splitting the data into training data
 # train = data
-# train = data
+
 
 
 
