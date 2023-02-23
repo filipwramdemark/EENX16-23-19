@@ -4,7 +4,8 @@ import pandas as pd
 
 snow = ''
 
-snow_to_label_df = pd.read_csv('algoritm/snow_to_label')
+snow_to_label_df = pd.read_csv('algoritm/snow_to_label.csv', names=['Snow', 'Label'])
+snow_to_label = snow_to_label_df.to_dict(orient='list')
 
 app = Flask(__name__)
 
@@ -31,11 +32,10 @@ def temp():
 @app.route('/temp', methods=['POST'])
 def temp_post():
     T = float(request.form['text'])
-    snow_label = 
-    wax_label = predict([snow, ])
-    return T
+    snow_ind = snow_to_label['Snow'].index(snow)
+    snow_label = snow_to_label['Snow'][snow_ind]
+    wax_label = predict([snow_label, T])
+    return wax_label[0]
 
 if __name__ == "__main__":
     app.run()
-
-
