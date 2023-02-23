@@ -30,3 +30,7 @@ data.to_csv('algoritm/Valladata_prep.csv', index=False)
 label_to_wax_df = pd.DataFrame.from_dict(label_to_wax, orient='index')
 
 label_to_wax_df.to_csv('algoritm/label_to_wax.csv', header=False)
+
+snow_to_label_df = pd.DataFrame.from_dict(snow_to_label, orient='index')
+
+snow_to_label_df.to_csv('algoritm/snow_to_label.csv', header=False)
