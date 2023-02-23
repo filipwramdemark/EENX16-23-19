@@ -11,10 +11,10 @@ def index():
     if request.method == 'POST':
         if request.form.get('action1') == 'Konstsnö':
             x = cal(3)
-            return ("Swix V40" + str(x))
+            return ("Swix V40")
         elif  request.form.get('action2') == 'Nysnö':
             x = cal(5)
-            return ("Swix KX75" + str(x))
+            return ("Swix KX75")
         else:
             pass # unknown
     elif request.method == 'GET':
