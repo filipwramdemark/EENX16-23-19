@@ -28,7 +28,7 @@ model = SVC(C=1, kernel='rbf', decision_function_shape='ovr', probability=True)
 model.fit(train_features, train_labels)
 
 # save the model
-pickle.dump(model, open('algoritm/SVM_model/svm_model.sav', 'wb'))
+pickle.dump(model, open('algoritm/SVM/SVM_model/svm_model.sav', 'wb'))
 
 # evaluate the model
 pred_labels = model.predict(test_features)

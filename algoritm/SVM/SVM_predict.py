@@ -1,7 +1,7 @@
 import pandas as pd
 import pickle
 
-model = pickle.load(open('algoritm/SVM_model/svm_model.sav', 'rb'))
+model = pickle.load(open('algoritm/SVM/SVM_model/svm_model.sav', 'rb'))
 
 label_to_wax_df = pd.read_csv('algoritm/label_to_wax.csv', names=['Label', 'Wax'])
 
