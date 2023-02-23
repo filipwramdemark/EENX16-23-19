@@ -10,6 +10,7 @@ data = pd.read_csv('algoritm/Valladata_prep.csv')
 data = data.dropna(axis='columns')   
 train, test = train_test_split(data, test_size = 0.2, shuffle = True)
 
+
 def eval():
     y = test['Valla (Label)']
     x = test.drop(columns='Valla (Label)')
