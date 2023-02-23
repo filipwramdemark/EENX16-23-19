@@ -1,5 +1,4 @@
 <h3>Snötyp<h3/>
-    <form method="post" action="/">
-        <input type="submit" value="Konstsnö" name="action1"/>
-        <input type="submit" value="Nysnö" name="action2" />
-    </form>
+{% for snow_type, name in snow_types.items() %}
+<a href="snowtypes/{{ snow_type }}">{{ name }}</a>
+{% endfor %}
