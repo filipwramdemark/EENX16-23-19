@@ -3,7 +3,7 @@ import numpy as np
 import pandas as pd
 from tensorflow import keras
 
-model = keras.models.load_model('algoritm/NN_model')
+model = keras.models.load_model('algoritm/NN/NN_model')
 
 label_to_wax_df = pd.read_csv('algoritm/label_to_wax.csv', names=['Label', 'Wax'])
 

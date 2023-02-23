@@ -60,4 +60,4 @@ score = model.evaluate(test_features, test_labels, verbose=0)
 
 print('Test loss: {}, Test accuracy {}'.format(score[0], score[1]))
 
-model.save('algoritm/NN_model')
+model.save('algoritm/NN/NN_model')
