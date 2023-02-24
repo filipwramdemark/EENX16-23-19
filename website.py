@@ -6,8 +6,8 @@ snow_to_label_df = pd.read_csv('algoritm/snow_to_label.csv', names=['Snow', 'Lab
 
 snow_types_df = snow_to_label_df['Snow']
 
-
 snow_to_label = snow_to_label_df.to_dict(orient='list') 
+
 
 app = Flask(__name__)
 
@@ -37,14 +37,13 @@ def snow_types(snow_type : int):
     elif request.method == "POST":
         T = float(request.form['temp'])
 
-    
-        wax = NN.predict([snow_type, T])
+        wax = NN.predict([int(snow_type), T])
 
-        # return render_template('label.html', label=wax)
-        return wax
+        return render_template('label.html', label=wax[0])
     else:
         return 404
 
 
 if __name__ == "__main__":
     app.run()
+
