@@ -1,0 +1,31 @@
+html{
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.background {
+    background-color: lightblue;
+}
+
+h3{
+    text-align: center;
+}
+
+h1{
+    text-align: center;
+}
+
+a:link, a:visited {
+    background-color: rgb(0, 0, 120);
+    color: white;
+    padding: 25px 40px;
+    border: 2px solid lightblue;
+    /* border-bottom: 2px solid white ; */
+    text-align: center;
+    text-decoration: none;
+    display: block;
+}
+  
+a:hover, a:active {
+    background-color: rgb(0, 0, 48);
+}
+
