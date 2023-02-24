@@ -27,8 +27,7 @@ for i in data.index:
         snow_to_label[data.at[i, 'Snötyp:']] = len(snow_to_label)
         label_to_snow[len(label_to_snow)] = data.at[i, 'Snötyp:']
     
-    data.at[i, 'Snötyp:'] = snow_to_label[data.at[i, 'Snötyp:']]
-
+    data.at[i, 'Snötyp:'] = snow_to_label[data.at[i, 'Snötyp:']]*100
     if data.at[i, 'Valla (Label)'] not in wax_to_label:
         wax_to_label[data.at[i, 'Valla (Label)']] = len(wax_to_label)
         label_to_wax[len(label_to_wax)] = data.at[i, 'Valla (Label)']
@@ -79,7 +78,7 @@ def predict(X):
 
     return wax
 
-print(predict([2, 1]))
+print(predict([2, -2]))
 
 
 
