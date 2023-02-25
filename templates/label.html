@@ -2,12 +2,19 @@
 <html>
     <head>
         <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css')}}" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
     </head>
 
     <body class="background">
-        <h1>1. {{ label1 }}</h1>
-        <h1>2. {{ label2 }}</h1>
-        <h1>3. {{ label3 }}</h1>
+        <div>
+            <a href="/" class="homebutton"> <i class="fa fa-home"></i> </a>
+            <h1> Rekommenderad valla </h1>
+        </div>
+        <div class="block">
+            <h2>1. {{ label1 }}</h2>
+            <h2>2. {{ label2 }}</h2>
+            <h2>3. {{ label3 }}</h2>
+        </div>
     </body>
 </html>
 

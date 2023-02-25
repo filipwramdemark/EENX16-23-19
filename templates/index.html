@@ -2,13 +2,17 @@
 <html>
     <head>
         <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css')}}" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
     </head>
 
     <body class="background">
-        <h1>Snötyp<h1/>
+        <div>
+            <a href="/" class="homebutton"> <i class="fa fa-home"></i> </a>
+            <h1> Snötyp </h1>
+        </div>
         <h3>
             {% for snow_type, name in snow_types.items() %}
-            <a href="snowtypes/{{ snow_type }}">{{ name }} <br> </a>
+            <a class="snowbutton" href="snowtypes/{{ snow_type }}">{{ name }} <br> </a>
             {% endfor %}
         </h3>
     </body>
