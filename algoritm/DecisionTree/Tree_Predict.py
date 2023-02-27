@@ -14,4 +14,4 @@ def Treepredict(data):
     guessedlabel = model.predict(data.iloc[0])
     guess =(label_to_wax_df.at[guessedlabel, 'Wax'])
     return(guess)
-print(Treepredict(testdata))
+# print(Treepredict(testdata))
