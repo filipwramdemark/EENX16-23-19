@@ -24,7 +24,7 @@ h1{
     color: white;
     padding: 25px 40px;
     border: 2px solid lightblue;
-    /* border-bottom: 2px solid white ; */
+    font-size: larger;
     text-align: center;
     text-decoration: none;
     display: block;
