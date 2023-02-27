@@ -1,14 +1,15 @@
-import numpy as np
 import pandas as pd
 from sklearn.model_selection import train_test_split
 import pickle
-from joblib import load, dump
 import graphics as gp
 from Decisiontree import Classification_eval
+
+
 tree = pickle.load(open('algoritm/DecisionTree/Decision_Tree.pickle', "rb"))
 data = pd.read_csv('algoritm/Valladata_prep.csv')
 data = data.dropna(axis='columns')   
 train, test = train_test_split(data, test_size = 0.2, shuffle = True)
+
 
 def eval():
     y = test['Valla (Label)']

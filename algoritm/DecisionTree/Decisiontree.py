@@ -2,14 +2,15 @@ import numpy as np
 import pandas as pd
 from sklearn.model_selection import train_test_split
 import pickle
-from joblib import load, dump
 import graphics as gp
+
+
 data = pd.read_csv('algoritm/Valladata_prep.csv')
 data = data.dropna(axis='columns')                      #Getting the data format
 # print(data) 
 train, test = train_test_split(data, test_size = 0.2, shuffle = True) #splitting the data into training data
 # train = data
-
+label_to_wax_df = pd.read_csv('algoritm/label_to_wax.csv', names=['Label', 'Wax']) 
 
 
 
@@ -159,7 +160,7 @@ class TreeNode():
             leaf = gp.Rectangle(leafp1, leafp2)
             leaf.setFill('green')
             anchorPoint = leaf.getCenter()
-            text = gp.Text(anchorPoint, f"{'label'}{'='}{self.classification}")
+            text = gp.Text(anchorPoint, f"{(label_to_wax_df.at[self.classification, 'Wax'])}")
             leaf.draw(win)
             text.draw(win)
             return self
@@ -181,7 +182,7 @@ class TreeNode():
             ch2p1 = gp.Point(start,950-hei)
             ch2p2 = gp.Point(end,950-hei+50)
             ch2 = gp.Rectangle(ch2p1, ch2p2)
-            ch2.setFill('red')
+            ch2.setFill('blue')
             anchorPoint = ch2.getCenter()
             text = gp.Text(anchorPoint, f"{self.split_parameter}{'='}{self.split_value}")
             ch2.draw(win)
