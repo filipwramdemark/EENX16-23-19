@@ -1,5 +1,8 @@
 from flask import Flask, render_template, request, redirect, url_for
 import algoritm.NN.NN_predict as NN
+from algoritm.DecisionTree.Decisiontree import TreeNode
+import algoritm.DecisionTree.Tree_Predict as tree
+import algoritm.SVM.SVM_predict as SVM
 import pandas as pd
 
 snow_to_label_df = pd.read_csv("algoritm/snow_to_label.csv", names=["Snow", "Label"])
@@ -24,12 +27,22 @@ def snow_types(snow_type : int):
     elif request.method == "POST":
         T = float(request.form["temp"])
 
-        wax = NN.predict([int(snow_type), T])
+        input = [int(snow_type), T]
 
-        return render_template("label.html", label1=wax[0], label2=wax[1], label3=wax[2])
+        wax_NN = NN.predict(input)
+        wax_tree = tree.Treepredict(input)
+        wax_SVM = SVM.predict(input)
+
+        return render_template("label.html", snow_type=snow_type, label_NN1=wax_NN[0], label_NN2=wax_NN[1], label_NN3=wax_NN[2], label_tree=wax_tree, 
+                               label_SVM1=wax_SVM[0], label_SVM2=wax_SVM[1], label_SVM3=wax_SVM[2])
     else:
         return 404
 
+
+@app.route("/snowtypes/<snow_type>/feedback", methods=["GET", "POST"])
+def feedback(snow_type : int):
+    # return (snow)
+    return render_template("feedback.html", snow_type=snow_type)
 
 if __name__ == "__main__":
     app.run()

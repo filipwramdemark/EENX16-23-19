@@ -23,7 +23,7 @@ for df in [train_features, test_features]:
     for col in train_features.columns:
         df[col] = df[col] / df[col].abs().max()
 
-    df['Snötyp:'] = df['Snötyp:'] * 2
+    df['Snötyp:'] = df['Snötyp:'] * 10
 
 print(train_features)
 

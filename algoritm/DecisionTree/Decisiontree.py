@@ -2,7 +2,7 @@ import numpy as np
 import pandas as pd
 from sklearn.model_selection import train_test_split
 import pickle
-import graphics as gp
+# import graphics as gp
 
 
 data = pd.read_csv('algoritm/Valladata_prep.csv')
@@ -146,49 +146,49 @@ class TreeNode():
 
 
             
-    def print_childs(self, win, wid, hei,s, start , end):
-        if self.leaf_node:
-            if s == 'l':
-                start = start
-                end = start + wid
-            else:
-                start =  end - wid
-                end = end 
+    # def print_childs(self, win, wid, hei,s, start , end):
+    #     if self.leaf_node:
+    #         if s == 'l':
+    #             start = start
+    #             end = start + wid
+    #         else:
+    #             start =  end - wid
+    #             end = end 
 
-            leafp1 = gp.Point(start,950-hei)
-            leafp2 = gp.Point(end,950-hei+50)
-            leaf = gp.Rectangle(leafp1, leafp2)
-            leaf.setFill('green')
-            anchorPoint = leaf.getCenter()
-            text = gp.Text(anchorPoint, f"{(label_to_wax_df.at[self.classification, 'Wax'])}")
-            leaf.draw(win)
-            text.draw(win)
-            return self
-        elif s == 'l':
-            start = start
-            end = start + wid
-            ch1p1 = gp.Point(end,950-hei)
-            ch1p2 = gp.Point(start,950-hei+50)
-            ch1 = gp.Rectangle(ch1p1, ch1p2)
-            ch1.setFill('blue')
-            anchorPoint = ch1.getCenter()
-            text = gp.Text(anchorPoint, f"{self.split_parameter}{'='}{self.split_value}")
-            ch1.draw(win)
-            text.draw(win)
+    #         leafp1 = gp.Point(start,950-hei)
+    #         leafp2 = gp.Point(end,950-hei+50)
+    #         leaf = gp.Rectangle(leafp1, leafp2)
+    #         leaf.setFill('green')
+    #         anchorPoint = leaf.getCenter()
+    #         text = gp.Text(anchorPoint, f"{(label_to_wax_df.at[self.classification, 'Wax'])}")
+    #         leaf.draw(win)
+    #         text.draw(win)
+    #         return self
+    #     elif s == 'l':
+    #         start = start
+    #         end = start + wid
+    #         ch1p1 = gp.Point(end,950-hei)
+    #         ch1p2 = gp.Point(start,950-hei+50)
+    #         ch1 = gp.Rectangle(ch1p1, ch1p2)
+    #         ch1.setFill('blue')
+    #         anchorPoint = ch1.getCenter()
+    #         text = gp.Text(anchorPoint, f"{self.split_parameter}{'='}{self.split_value}")
+    #         ch1.draw(win)
+    #         text.draw(win)
         
-        elif s == 'r':
-            start =  end - wid
-            end = end 
-            ch2p1 = gp.Point(start,950-hei)
-            ch2p2 = gp.Point(end,950-hei+50)
-            ch2 = gp.Rectangle(ch2p1, ch2p2)
-            ch2.setFill('blue')
-            anchorPoint = ch2.getCenter()
-            text = gp.Text(anchorPoint, f"{self.split_parameter}{'='}{self.split_value}")
-            ch2.draw(win)
-            text.draw(win)
-        # return (self.child_nodes[1].print_childs(win, (wid/2), (hei-50),'r',start,end))
-        return  (self.child_nodes[0].print_childs(win, (wid/2), (hei-50), 'r',start,end) and (self.child_nodes[1].print_childs(win, (wid/2), (hei-50),'l',start,end)))
+    #     elif s == 'r':
+    #         start =  end - wid
+    #         end = end 
+    #         ch2p1 = gp.Point(start,950-hei)
+    #         ch2p2 = gp.Point(end,950-hei+50)
+    #         ch2 = gp.Rectangle(ch2p1, ch2p2)
+    #         ch2.setFill('blue')
+    #         anchorPoint = ch2.getCenter()
+    #         text = gp.Text(anchorPoint, f"{self.split_parameter}{'='}{self.split_value}")
+    #         ch2.draw(win)
+    #         text.draw(win)
+    #     # return (self.child_nodes[1].print_childs(win, (wid/2), (hei-50),'r',start,end))
+    #     return  (self.child_nodes[0].print_childs(win, (wid/2), (hei-50), 'r',start,end) and (self.child_nodes[1].print_childs(win, (wid/2), (hei-50),'l',start,end)))
         
 
     def learn(self, data, label, min_node_size):

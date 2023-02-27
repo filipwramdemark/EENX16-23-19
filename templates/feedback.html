@@ -4,18 +4,11 @@
         <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css')}}" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
     </head>
-    
+
     <body class="background">
         <div>
             <a href="/" class="homebutton"> <i class="fa fa-home"></i> </a>
-            <h1>Temperatur</h1>
-            <a href="/snowtypes/{{snow_type}}/feedback" class="feedbackbutton"> Feedback </a>
+            <h1> {{ snow_type }} </h1>
         </div>
-        <form method="POST" class="input">
-            <input name="temp" id="temp" type="number" step="0.1" class="inputfield" value="0">
-            <br>
-            <br>
-            <input type="submit" value="Bestäm valla" class="submitbutton">
-        </form>
     </body>
 </html>

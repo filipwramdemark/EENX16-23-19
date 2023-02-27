@@ -9,11 +9,23 @@
         <div>
             <a href="/" class="homebutton"> <i class="fa fa-home"></i> </a>
             <h1> Rekommenderad valla </h1>
+            <a href="/snowtypes/{{snow_type}}/feedback" class="feedbackbutton"> Feedback </a>
         </div>
         <div class="block">
-            <h2>1. {{ label1 }}</h2>
-            <h2>2. {{ label2 }}</h2>
-            <h2>3. {{ label3 }}</h2>
+            <div class="waxheader"> Neural Network </div>
+            <h2>1. {{ label_NN1 }}</h2>
+            <h2>2. {{ label_NN2 }}</h2>
+            <h2>3. {{ label_NN3 }}</h2>
+        </div>
+        <div class="block">
+            <div class="waxheader"> Beslutsträd </div>
+            <h2> {{ label_tree }}</h2>
+        </div>
+        <div class="block">
+            <div class="waxheader"> Support Vector Machine </div>
+            <h2>1. {{ label_SVM1 }}</h2>
+            <h2>2. {{ label_SVM2 }}</h2>
+            <h2>3. {{ label_SVM3 }}</h2>
         </div>
     </body>
 </html>
