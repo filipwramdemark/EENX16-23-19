@@ -4,21 +4,21 @@ BLEService SendData("64981768-2f1b-400e-8e75-e5a86c5434b8");
 BLEFloatCharacteristic SendCharacteristic("64981768-2f1b-400e-8e75-e5a86c5434b8", BLERead | BLENotify);
 
 void setup() {
-  serial.Begin(9600);
+  Serial.begin(9600);
 
-  if(!BLE.Begin()){
-    serial.println("BLE start failed");
+  if(!BLE.begin()){
+    Serial.println("BLE start failed");
   }
 
   BLE.setLocalName("Data sender");
-  BLE.setAdvertisedService(BLEService);
+  BLE.setAdvertisedService(SendData);
 
   SendData.addCharacteristic(SendCharacteristic);
 
   BLE.addService(SendData);
 
   BLE.advertise();
-  serial.println("Waiting for connection...");
+  Serial.println("Waiting for connection...");
 
 }
 
@@ -27,8 +27,8 @@ void loop() {
   BLEDevice central = BLE.central();
 
   if(central){
-    serial.println("Connected to central");
-    serial.println(central.adress());
+    Serial.println("Connected to central");
+    Serial.println(central.address());
   }
 
   while(central.connected()){
@@ -36,10 +36,10 @@ void loop() {
     int temp = 1;
 
     //Skicka datan
-    SendCharacteristics.writeValue(temp);
+    SendCharacteristic.writeValue(temp);
   }
 
-  serial.println("Central disconnected");
+  Serial.println("Central disconnected");
 
 
 }
