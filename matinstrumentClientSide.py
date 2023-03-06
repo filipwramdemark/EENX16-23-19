@@ -7,7 +7,9 @@ from bleak import BleakScanner
 charachteristicID = '19B10001-E8F2-537E-4F6C-D104768A1214'
 serviceID = "19B10000-E8F2-537E-4F6C-D104768A1214"
 
-
+def temperatureCallback(handle, data):
+  #Skriv ut temperaturvärdet i konsolen. Datan kommer som bytes så gör om de till int
+  print(int.from_bytes(data, byteorder='little', signed=True))
 
 async def main():
   devices = await BleakScanner.discover()
@@ -18,6 +20,7 @@ async def main():
       address = i.address
       endProgram = 1
       print("Address:", address)
+      print("Name:", i.name)
   
   #Avslutar program ifall enheten ej finnes
   if(endProgram == 0):
@@ -33,11 +36,11 @@ async def main():
       if(i.uuid == serviceID.lower()):
         print("Service ID found!")
 
-    tempData = await client.read_gatt_char(charachteristicID)
-    #Skriv ut värdet på datan som advertisas av arduinon
-    print("Temp data: ", int.from_bytes(tempData, byteorder='little'))
-    #client.start_notify(charachteristicID, callback)
+    await client.start_notify(charachteristicID, temperatureCallback)
+    #Sleep i 3s
+    await asyncio.sleep(10)
+    #Stoppa notify "servicen"
+    await client.stop_notify(charachteristicID)
 
 
-if __name__ == "__main__":
-  asyncio.run(main())
+asyncio.run(main())
