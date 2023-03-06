@@ -11,9 +11,14 @@
             <h1> Feedback </h1>
         </div>
         <div class="block">
-            <div class="header"> Är du nöjd med vallan? </div>
+            <div autocomplete="off" class="header"> Vilken valla valde du? </div>
             <br>
-            <div style="text-align:center"><a href="wax" class="waxokbutton"> JA </a> <a href="/" class="waxokbutton"> NEJ </a></div>
+            <form method="POST" class="input">
+                <input name="wax" id="wax" type="text" class="inputfield">
+                <br>
+                <br>
+                <input type="submit" value="Lämna feedback" class="waxbutton">
+            </form>
         </div>
     </body>
 </html>

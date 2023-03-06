@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for
 import algoritm.NN.NN_predict as NN
-from algoritm.DecisionTree.Decisiontree import TreeNode
+# from algoritm.DecisionTree.Decisiontree import TreeNode
 import algoritm.DecisionTree.Tree_Predict as tree
 import algoritm.SVM.SVM_predict as SVM
 import pandas as pd
@@ -12,6 +12,10 @@ snow_types_df = snow_to_label_df["Snow"]
 snow_to_label = snow_to_label_df.to_dict(orient="list") 
 
 snow = {snow_to_label["Label"][i] : snow_to_label["Snow"][i] for i in range(len(snow_to_label["Snow"]))}
+
+waxes = pd.read_csv("algoritm/label_to_wax.csv").iloc[:,1].to_list()
+
+print(waxes)
 
 app = Flask(__name__)
 
@@ -44,6 +48,14 @@ def feedback(snow_type : int):
     # return (snow)
     return render_template("feedback.html", snow_type=snow_type)
 
+
+@app.route("/snowtypes/<snow_type>/wax", methods=["GET", "POST"])
+def wax(snow_type : int):
+    if request.method == "GET":
+        return render_template("wax.html", snow_type=snow_type)
+    elif request.method == "POST":
+        render_template("done.html", snow_type=snow_type)
+
+
 if __name__ == "__main__":
     app.run()
-
