@@ -1,6 +1,5 @@
 from flask import Flask, render_template, request, redirect, url_for
 import algoritm.NN.NN_predict as NN
-# from algoritm.DecisionTree.Decisiontree import TreeNode
 import algoritm.DecisionTree.Tree_Predict as tree
 import algoritm.SVM.SVM_predict as SVM
 import pandas as pd
@@ -52,10 +51,14 @@ def feedback(snow_type : int):
 @app.route("/snowtypes/<snow_type>/wax", methods=["GET", "POST"])
 def wax(snow_type : int):
     if request.method == "GET":
-        return render_template("wax.html", snow_type=snow_type)
+        return render_template("wax.html", snow_type=snow_type, waxes=waxes)
     elif request.method == "POST":
-        render_template("done.html", snow_type=snow_type)
+        wax = request.form["wax"]
+        return render_template("done.html")
 
+@app.route("/done")
+def done():
+    return render_template("done.html")
 
 if __name__ == "__main__":
     app.run()
