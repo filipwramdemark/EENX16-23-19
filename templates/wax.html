@@ -20,17 +20,22 @@
             <input type="submit" value="Lämna feedback" class="waxbutton">
         </form>
         <script>
-            function autocomplete(inp, arr) {
+            // insperation from 
+            // https://stackoverflow.com/questions/65535392/how-to-make-autocomplete-in-javascript-show-entries-regardless-of-word-order
+            
+            function autocomp(inp, arr) {
             /*the autocomplete function takes two arguments,
             the text field element and an array of possible autocompleted values:*/
-            var currentFocus;
+            var current;
             /*execute a function when someone writes in the text field:*/
             inp.addEventListener("input", function(e) {
                 var a, b, i, val = this.value;
                 /*close any already open lists of autocompleted values*/
                 closeAllLists();
-                if (!val) { return false;}
-                currentFocus = -1;
+                if (!val) { 
+                    return false;
+                }
+                current = -1;
                 /*create a DIV element that will contain the items (values):*/
                 a = document.createElement("DIV");
                 a.setAttribute("id", this.id + "autocomplete-list");
@@ -60,47 +65,51 @@
                     }
                 }
             });
+
             /*execute a function presses a key on the keyboard:*/
             inp.addEventListener("keydown", function(e) {
                 var x = document.getElementById(this.id + "autocomplete-list");
                 if (x) x = x.getElementsByTagName("div");
                 if (e.keyCode == 40) {
                     /*If the arrow DOWN key is pressed,
-                    increase the currentFocus variable:*/
-                    currentFocus++;
+                    increase the current variable:*/
+                    current++;
                     /*and and make the current item more visible:*/
                     addActive(x);
                 } else if (e.keyCode == 38) { //up
                     /*If the arrow UP key is pressed,
-                    decrease the currentFocus variable:*/
-                    currentFocus--;
+                    decrease the current variable:*/
+                    current--;
                     /*and and make the current item more visible:*/
                     addActive(x);
                 } else if (e.keyCode == 13) {
                     /*If the ENTER key is pressed, prevent the form from being submitted,*/
                     e.preventDefault();
-                    if (currentFocus > -1) {
+                    if (current > -1) {
                     /*and simulate a click on the "active" item:*/
-                    if (x) x[currentFocus].click();
+                    if (x) x[current].click();
                     }
                 }
+
             });
             function addActive(x) {
                 /*a function to classify an item as "active":*/
                 if (!x) return false;
                 /*start by removing the "active" class on all items:*/
                 removeActive(x);
-                if (currentFocus >= x.length) currentFocus = 0;
-                if (currentFocus < 0) currentFocus = (x.length - 1);
+                if (current >= x.length) current = 0;
+                if (current < 0) current = (x.length - 1);
                 /*add class "autocomplete-active":*/
-                x[currentFocus].classList.add("autocomplete-active");
+                x[current].classList.add("autocomplete-active");
             }
+
             function removeActive(x) {
                 /*a function to remove the "active" class from all autocomplete items:*/
                 for (var i = 0; i < x.length; i++) {
                 x[i].classList.remove("autocomplete-active");
                 }
             }
+
             function closeAllLists(elmnt) {
                 /*close all autocomplete lists in the document,
                 except the one passed as an argument:*/
@@ -111,6 +120,7 @@
                 }
                 }
             }
+            
             /*execute a function when someone clicks in the document:*/
             document.addEventListener("click", function (e) {
                 closeAllLists(e.target);
@@ -123,7 +133,7 @@
                 {% endfor %}
                 ];
 
-            autocomplete(document.getElementById("wax"), waxes_av);  
+            autocomp(document.getElementById("wax"), waxes_av);  
         </script>
     </body>
 </html>
