@@ -1,6 +1,6 @@
 import pandas as pd
 
-data = [0,1, 2]
+data = [0,1, 1]
 
 def savefeedback(da):
     feedback =  {'Snötyp:': [da[0]], 'Snötemperatur:': [da[1]], 'Valla (Label)': [da[2]]}
@@ -22,6 +22,6 @@ print('nya')
 print(data)
 frames = [old,data]
 test =  pd.concat(frames)
-
+test = test.drop('Unnamed: 0', axis=1)
 print('Final')
 print(test)
