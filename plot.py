@@ -5,7 +5,7 @@ import statistics
 
 acc = pd.read_csv('x_acc.csv').values.tolist()
 
-acc = [x[0] for x in acc]
+acc = [x[0] for x in acc if abs(x[0]) < 100000]
 # vel = []
 
 # for i,a in enumerate(acc):
@@ -16,9 +16,8 @@ acc = [x[0] for x in acc]
 #     new_sum = sum + a
 #     vel.append(new_sum)
 
-vel = it.cumtrapz(acc, initial=0)
+# vel = it.cumtrapz(acc, initial=0)
 
-print(vel[0:50])
 plt.plot(acc)
-plt.plot(vel)
+# plt.plot(vel)
 plt.show()
