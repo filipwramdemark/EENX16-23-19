@@ -17,10 +17,10 @@ def temperatureCallback(handle, data):
 #   print(float((int.from_bytes(data, byteorder='little', signed=True))))
     #print(data)
      #print(struct.unpack('<f', data))
-    x_acc = int.from_bytes(data, byteorder='little', signed=True)/10
-    x_df = pd.DataFrame([x_acc])
-    x_df.to_csv('x_acc.csv', mode='a', index=False, header=False)
-    print(x_acc)
+    acc = int.from_bytes(data, byteorder='little', signed=True)/100
+    x_df = pd.DataFrame([acc])
+    x_df.to_csv('acc_test1.csv', mode='a', index=False, header=False)
+    print(acc)
 
 async def main():
   devices = await BleakScanner.discover()
