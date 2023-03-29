@@ -6,7 +6,7 @@ from sklearn.svm import SVC
 from sklearn.model_selection import train_test_split
 
 # read the data
-data = pd.read_csv('algoritm/Valladata_prep.csv')
+data = pd.read_csv('algoritm/Valladatamer_prep.csv')
 data = data.dropna(axis='columns')
 
 # split into training and test set
@@ -33,6 +33,6 @@ pickle.dump(model, open('algoritm/SVM/SVM_model/svm_model.sav', 'wb'))
 # evaluate the model
 pred_labels = model.predict(test_features)
 
-# acc = accuracy_score(test_labels, pred_labels)
+acc = accuracy_score(test_labels, pred_labels)
 
-# print('Accuracy:', acc)
+print('Accuracy:', acc)
