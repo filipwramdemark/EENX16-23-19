@@ -24,13 +24,13 @@
             // https://stackoverflow.com/questions/65535392/how-to-make-autocomplete-in-javascript-show-entries-regardless-of-word-order
             
             // autocomplete function taking text field and array as input
-            function autocomp(inp, x) {
+            function autocomp(input, x) {
             var current;
             
-            inp.addEventListener("input", function(e) {
-                var a, b, i, val = this.value;
-                closeAllLists();
-                if (!val) { 
+            input.addEventListener("input", function(e) {
+                var a, b, i, value = this.value;
+                closeLists();
+                if (!value) { 
                     return false;
                 }
                 current = -1;
@@ -44,74 +44,70 @@
                 
                 // for every item, if the prefix matches, create a DIV element, make the prefix bold 
                 for (i = 0; i < x.length; i++) {
-                    if (x[i].substr(0, val.length).toUpperCase() == val.toUpperCase()) {
+                    if (x[i].substr(0, value.length).toUpperCase() == value.toUpperCase()) {
                     b = document.createElement("DIV");
-                    b.innerHTML = "<strong>" + x[i].substr(0, val.length) + "</strong>";
+                    b.innerHTML = "<strong>" + x[i].substr(0, value.length) + "</strong>";
                     b.innerHTML += "<input type='hidden' value='" + x[i] + "'>";
-                    b.innerHTML += x[i].substr(val.length);
+                    b.innerHTML += x[i].substr(value.length);
                     b.addEventListener("click", function(e) {
-                        inp.value = this.getElementsByTagName("input")[0].value;
-                        closeAllLists();
+                        input.value = this.getElementsByTagName("input")[0].value;
+                        closeLists();
                     });
                     a.appendChild(b);
                     }
                 }
             });
 
-            /*execute a function presses a key on the keyboard:*/
-            inp.addEventListener("keydown", function(e) {
+            // execute when a key is pressed down
+            input.addEventListener("keydown", function(e) {
                 var x = document.getElementById(this.id + "autocomplete-list");
                 if (x) x = x.getElementsByTagName("div");
                 if (e.keyCode == 40) {
-                    /*If the arrow DOWN key is pressed,
-                    increase the current variable:*/
                     // increase current counter if down is active and mark it
                     current++;
-                    addActive(x);
+                    activeAdd(x);
                 } else if (e.keyCode == 38) { //up
                     // decrease current counter if up is active and mark it
                     current--;
-                    addActive(x);
+                    activeAdd(x);
                 } else if (e.keyCode == 13) {
-                    /*If the ENTER key is pressed, prevent the form from being submitted,*/
+                    // don't submit the form if enter is pressed
                     e.preventDefault();
                     if (current > -1) {
-                    /*and simulate a click on the "active" item:*/
                     if (x) x[current].click();
                     }
                 }
 
             });
-            function addActive(x) {
-                /*a function to classify an item as "active":*/
+            function activeAdd(x) {
+                // make an item active
                 if (!x) return false;
-                /*start by removing the "active" class on all items:*/
-                removeActive(x);
+                activeRemove(x);
                 if (current >= x.length) current = 0;
                 if (current < 0) current = (x.length - 1);
-                /*add class "autocomplete-active":*/
+                // add a class autocomplete-active"
                 x[current].classList.add("autocomplete-active");
             }
 
-            function removeActive(x) {
-                /*a function to remove the "active" class from all autocomplete items:*/
+            function activeRemove(x) {
+                // remove the active from the items
                 for (var i = 0; i < x.length; i++) {
                 x[i].classList.remove("autocomplete-active");
                 }
             }
 
             // close autocomplete lists 
-            function closeAllLists(elmnt) {
+            function closeLists(elmnt) {
                 var x = document.getElementsByClassName("autocomplete-items");
                 for (var i = 0; i < x.length; i++) {
-                if (elmnt != x[i] && elmnt != inp) {
+                if (elmnt != x[i] && elmnt != input) {
                     x[i].parentNode.removeChild(x[i]);
                 }
                 }
             }
             
             document.addEventListener("click", function (e) {
-                closeAllLists(e.target);
+                closeLists(e.target);
             });
             }
             
