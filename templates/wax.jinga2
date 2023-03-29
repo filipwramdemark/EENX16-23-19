@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css')}}" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" /> 
+    </head>
+
+    <body class="background">
+        <div>
+            <a href="/" class="homebutton"> <i class="fa fa-home"></i> </a>
+            <h1> Vilken valla valde du? </h1>
+        </div>
+        <br>
+        <form method="POST" class="input" autocomplete="off">
+            <div class="autocomplete">
+            <input name="wax" id="wax" type="text" class="inputfield">
+            </div>
+            <br>
+            <br>
+            <input type="submit" value="Lämna feedback" class="waxbutton">
+        </form>
+        <script>
+            // insperation from 
+            // https://stackoverflow.com/questions/65535392/how-to-make-autocomplete-in-javascript-show-entries-regardless-of-word-order
+            
+            // autocomplete function taking text field and array as input
+            function autocomp(input, x) {
+            var current;
+            
+            input.addEventListener("input", function(e) {
+                var a, b, i, value = this.value;
+                closeLists();
+                if (!value) { 
+                    return false;
+                }
+                current = -1;
+
+                // create a DIV element containing the items
+                a = document.createElement("DIV");
+                a.setAttribute("id", this.id + "autocomplete-list");
+                a.setAttribute("class", "autocomplete-items");
+
+                this.parentNode.appendChild(a);
+                
+                // for every item, if the prefix matches, create a DIV element, make the prefix bold 
+                for (i = 0; i < x.length; i++) {
+                    if (x[i].substr(0, value.length).toUpperCase() == value.toUpperCase()) {
+                    b = document.createElement("DIV");
+                    b.innerHTML = "<strong>" + x[i].substr(0, value.length) + "</strong>";
+                    b.innerHTML += "<input type='hidden' value='" + x[i] + "'>";
+                    b.innerHTML += x[i].substr(value.length);
+                    b.addEventListener("click", function(e) {
+                        input.value = this.getElementsByTagName("input")[0].value;
+                        closeLists();
+                    });
+                    a.appendChild(b);
+                    }
+                }
+            });
+
+            // execute when a key is pressed down
+            input.addEventListener("keydown", function(e) {
+                var x = document.getElementById(this.id + "autocomplete-list");
+                if (x) x = x.getElementsByTagName("div");
+                if (e.keyCode == 40) {
+                    // increase current counter if down is active and mark it
+                    current++;
+                    activeAdd(x);
+                } else if (e.keyCode == 38) { //up
+                    // decrease current counter if up is active and mark it
+                    current--;
+                    activeAdd(x);
+                } else if (e.keyCode == 13) {
+                    // don't submit the form if enter is pressed
+                    e.preventDefault();
+                    if (current > -1) {
+                    if (x) x[current].click();
+                    }
+                }
+
+            });
+            function activeAdd(x) {
+                // make an item active
+                if (!x) return false;
+                activeRemove(x);
+                if (current >= x.length) current = 0;
+                if (current < 0) current = (x.length - 1);
+                // add a class autocomplete-active"
+                x[current].classList.add("autocomplete-active");
+            }
+
+            function activeRemove(x) {
+                // remove the active from the items
+                for (var i = 0; i < x.length; i++) {
+                x[i].classList.remove("autocomplete-active");
+                }
+            }
+
+            // close autocomplete lists 
+            function closeLists(elmnt) {
+                var x = document.getElementsByClassName("autocomplete-items");
+                for (var i = 0; i < x.length; i++) {
+                if (elmnt != x[i] && elmnt != input) {
+                    x[i].parentNode.removeChild(x[i]);
+                }
+                }
+            }
+            
+            document.addEventListener("click", function (e) {
+                closeLists(e.target);
+            });
+            }
+            
+            // get availible waxes
+            var waxes_av = [
+                {% for wax in waxes %}
+                    "{{wax}}",
+                {% endfor %}
+                ];
+
+            autocomp(document.getElementById("wax"), waxes_av);  
+        </script>
+    </body>
+</html>
