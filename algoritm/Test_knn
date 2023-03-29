@@ -5,9 +5,8 @@ from sklearn import metrics
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler 
 from sklearn.neighbors import KNeighborsClassifier  
-from sklearn.metrics import confusion_matrix  
-from sklearn import preprocessing
-from sklearn import utils
+import matplotlib as mpl
+
 
 
 # read the data
@@ -27,7 +26,7 @@ for i in data.index:
         snow_to_label[data.at[i, 'Snötyp:']] = len(snow_to_label)
         label_to_snow[len(label_to_snow)] = data.at[i, 'Snötyp:']
     
-    data.at[i, 'Snötyp:'] = snow_to_label[data.at[i, 'Snötyp:']]*100
+    data.at[i, 'Snötyp:'] = snow_to_label[data.at[i, 'Snötyp:']]*10
     if data.at[i, 'Valla (Label)'] not in wax_to_label:
         wax_to_label[data.at[i, 'Valla (Label)']] = len(wax_to_label)
         label_to_wax[len(label_to_wax)] = data.at[i, 'Valla (Label)']
@@ -56,15 +55,16 @@ st_x= StandardScaler()
 train_features= st_x.fit_transform(train_features)    
 test_features= st_x.transform(test_features)
 
-
-KNN = KNeighborsClassifier(n_neighbors=3, metric='minkowski', p=2) 
+KNN = KNeighborsClassifier(n_neighbors=3, metric='minkowski') 
+#KNN = KNeighborsClassifier(n_neighbors=18, p=2) 
 KNN.fit(train_features, train_labels)
+
+
 
 #predicting 
 predict_y = KNN.predict(test_features)
-print(predict_y)
-
 print("Accuracy:",metrics.accuracy_score(test_labels, predict_y))
+print(predict_y)
 
 label_to_wax_df = pd.read_csv('algoritm/label_to_wax.csv', names=['Label', 'Wax'])
 
@@ -78,7 +78,13 @@ def predict(X):
 
     return wax
 
-print(predict([2, -2]))
+print(predict([3, -4]))
+
+
+#plt.scatter(x=data['Snötyp:'], y = data['Snötemperatur:'], alpha = 0.3)
+#plt.ylabel('Snötemperatur')
+#plt.xlabel('Snötyp')
+#plt.show()
 
 
 
