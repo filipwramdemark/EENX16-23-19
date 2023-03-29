@@ -51,7 +51,7 @@ def feedback(snow_type : int):
 @app.route("/snowtypes/<snow_type>/wax", methods=["GET", "POST"])
 def wax(snow_type : int):
     if request.method == "GET":
-        return render_template("wax.html", snow_type=snow_type, waxes=waxes)
+        return render_template("wax.jinga2", snow_type=snow_type, waxes=waxes)
     elif request.method == "POST":
         wax = request.form["wax"]
         return render_template("done.html")
