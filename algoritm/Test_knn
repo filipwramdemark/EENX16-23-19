@@ -9,7 +9,7 @@ import matplotlib as mpl
 
 
 
-# read the data
+#Data being read
 data = pd.read_excel('algoritm/Valladata.xlsx')
 
 data = data.dropna(axis='columns')
@@ -34,8 +34,7 @@ for i in data.index:
     data.at[i, 'Valla (Label)'] = wax_to_label[data.at[i, 'Valla (Label)']]
 
 
-# split into training and test set
-#train, test = train_test_split(data, test_size = 0.2, shuffle = True)
+#Data split into test-and training set
 train = data
 test = data
 
@@ -56,17 +55,19 @@ train_features= st_x.fit_transform(train_features)
 test_features= st_x.transform(test_features)
 
 KNN = KNeighborsClassifier(n_neighbors=3, metric='minkowski') 
-#KNN = KNeighborsClassifier(n_neighbors=18, p=2) 
 KNN.fit(train_features, train_labels)
 
 
 
 #predicting 
 predict_y = KNN.predict(test_features)
+#The accuracy being predicted
 print("Accuracy:",metrics.accuracy_score(test_labels, predict_y))
+#Printing the what is predicted
 print(predict_y)
 
 label_to_wax_df = pd.read_csv('algoritm/label_to_wax.csv', names=['Label', 'Wax'])
+
 
 def predict(X):
     X = np.array([X])
@@ -78,9 +79,10 @@ def predict(X):
 
     return wax
 
+#adding the type of snow and the temperature
 print(predict([3, -4]))
 
-
+#Scatter plot of the clustering 
 #plt.scatter(x=data['Snötyp:'], y = data['Snötemperatur:'], alpha = 0.3)
 #plt.ylabel('Snötemperatur')
 #plt.xlabel('Snötyp')
