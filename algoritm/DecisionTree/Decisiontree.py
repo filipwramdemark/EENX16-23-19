@@ -2,10 +2,11 @@ import numpy as np
 import pandas as pd
 from sklearn.model_selection import train_test_split
 import pickle
-# import graphics as gp
+import graphics as gp
+from sklearn import metrics
+import matplotlib.pyplot as plt
 
-
-data = pd.read_csv('algoritm/Valladata_prep.csv')
+data = pd.read_csv('algoritm/Valladatamer_prep.csv')
 data = data.dropna(axis='columns')                      #Getting the data format
 # print(data) 
 train, test = train_test_split(data, test_size = 0.2, shuffle = True) #splitting the data into training data
@@ -30,13 +31,12 @@ class Classification_eval(object):
         """
         # TODO: add to one of the counters each time this function is called. 
         if pred == label:
-            self.TP += pred 
-            self.TN += (1-pred)
+            self.TP += 1 
+            # self.TN += 0
                 
         else:
-            self.FP += pred
-            self.FN += (1-pred)
-
+            # self.FP += 0
+            self.FN += 1
 
     
     def accuracy(self): 
@@ -44,7 +44,7 @@ class Classification_eval(object):
         if (self.TP + self.TN) == 0:
             return 0
         # TODO: calculate the accuracy.
-        accuracy = (self.TP + self.TN) / (self.TP + self.TN + self.FP + self.FN)
+        accuracy = (self.TP/(self.TP +self.FN))
         return np.round(accuracy, 4)
     
     def precision(self): # percentage of the estimated positive that actually is positive
@@ -146,49 +146,49 @@ class TreeNode():
 
 
             
-    # def print_childs(self, win, wid, hei,s, start , end):
-    #     if self.leaf_node:
-    #         if s == 'l':
-    #             start = start
-    #             end = start + wid
-    #         else:
-    #             start =  end - wid
-    #             end = end 
+    def print_childs(self, win, wid, hei,s, start , end):
+        if self.leaf_node:
+            if s == 'l':
+                start = start
+                end = start + wid
+            else:
+                start =  end - wid
+                end = end 
 
-    #         leafp1 = gp.Point(start,950-hei)
-    #         leafp2 = gp.Point(end,950-hei+50)
-    #         leaf = gp.Rectangle(leafp1, leafp2)
-    #         leaf.setFill('green')
-    #         anchorPoint = leaf.getCenter()
-    #         text = gp.Text(anchorPoint, f"{(label_to_wax_df.at[self.classification, 'Wax'])}")
-    #         leaf.draw(win)
-    #         text.draw(win)
-    #         return self
-    #     elif s == 'l':
-    #         start = start
-    #         end = start + wid
-    #         ch1p1 = gp.Point(end,950-hei)
-    #         ch1p2 = gp.Point(start,950-hei+50)
-    #         ch1 = gp.Rectangle(ch1p1, ch1p2)
-    #         ch1.setFill('blue')
-    #         anchorPoint = ch1.getCenter()
-    #         text = gp.Text(anchorPoint, f"{self.split_parameter}{'='}{self.split_value}")
-    #         ch1.draw(win)
-    #         text.draw(win)
+            leafp1 = gp.Point(start,950-hei)
+            leafp2 = gp.Point(end,950-hei+50)
+            leaf = gp.Rectangle(leafp1, leafp2)
+            leaf.setFill('green')
+            anchorPoint = leaf.getCenter()
+            text = gp.Text(anchorPoint, f"{(label_to_wax_df.at[self.classification, 'Wax'])}")
+            leaf.draw(win)
+            text.draw(win)
+            return self
+        elif s == 'l':
+            start = start
+            end = start + wid
+            ch1p1 = gp.Point(end,950-hei)
+            ch1p2 = gp.Point(start,950-hei+50)
+            ch1 = gp.Rectangle(ch1p1, ch1p2)
+            ch1.setFill('blue')
+            anchorPoint = ch1.getCenter()
+            text = gp.Text(anchorPoint, f"{self.split_parameter}{'='}{self.split_value}")
+            ch1.draw(win)
+            text.draw(win)
         
-    #     elif s == 'r':
-    #         start =  end - wid
-    #         end = end 
-    #         ch2p1 = gp.Point(start,950-hei)
-    #         ch2p2 = gp.Point(end,950-hei+50)
-    #         ch2 = gp.Rectangle(ch2p1, ch2p2)
-    #         ch2.setFill('blue')
-    #         anchorPoint = ch2.getCenter()
-    #         text = gp.Text(anchorPoint, f"{self.split_parameter}{'='}{self.split_value}")
-    #         ch2.draw(win)
-    #         text.draw(win)
-    #     # return (self.child_nodes[1].print_childs(win, (wid/2), (hei-50),'r',start,end))
-    #     return  (self.child_nodes[0].print_childs(win, (wid/2), (hei-50), 'r',start,end) and (self.child_nodes[1].print_childs(win, (wid/2), (hei-50),'l',start,end)))
+        elif s == 'r':
+            start =  end - wid
+            end = end 
+            ch2p1 = gp.Point(start,950-hei)
+            ch2p2 = gp.Point(end,950-hei+50)
+            ch2 = gp.Rectangle(ch2p1, ch2p2)
+            ch2.setFill('blue')
+            anchorPoint = ch2.getCenter()
+            text = gp.Text(anchorPoint, f"{self.split_parameter}{'='}{self.split_value}")
+            ch2.draw(win)
+            text.draw(win)
+        # return (self.child_nodes[1].print_childs(win, (wid/2), (hei-50),'r',start,end))
+        return  (self.child_nodes[0].print_childs(win, (wid/2), (hei-50), 'r',start,end) and (self.child_nodes[1].print_childs(win, (wid/2), (hei-50),'l',start,end)))
         
 
     def learn(self, data, label, min_node_size):
@@ -255,5 +255,28 @@ class TreeNode():
     
 tree = TreeNode() # create root node
 tree.learn(train, "Valla (Label)", min_node_size=10)
+labels = []
+preds = []
+def eval():
+    y = test['Valla (Label)']
+    x = test.drop(columns='Valla (Label)')
+    log = Classification_eval()
+
+    for i in range(x.shape[0]):
+        pred = tree.predict(x.iloc[i])
+        log.update(pred, y.iloc[i])
+        labels.append(y.iloc[i])
+        preds.append(pred)
+     
+    print('accuarcy', log.accuracy())
+    print('precision', log.precision())
+    print('recall', log.recall())
+    cm =metrics.confusion_matrix(labels, preds) #Skapara confusion matrix
+    disp = metrics.ConfusionMatrixDisplay(confusion_matrix=cm) #Målar upp matrixen
+    disp.plot()
+    plt.show()
+
+
+# eval()
 
 pickle.dump(tree, open('algoritm/DecisionTree/Decision_Tree.pickle', "wb"))
