@@ -5,7 +5,7 @@ import graphics as gp
 from Decisiontree import Classification_eval
 
 
-tree = pickle.load(open('algoritm/DecisionTree/Decision_Tree.pickle', "rb"))
+tree = pickle.load(open('algoritm/DecisionTree/Decision_Tree.pickle', 'rb'))
 data = pd.read_csv('algoritm/Valladata_prep.csv')
 data = data.dropna(axis='columns')   
 train, test = train_test_split(data, test_size = 0.2, shuffle = True)
