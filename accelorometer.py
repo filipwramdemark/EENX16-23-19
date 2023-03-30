@@ -19,7 +19,9 @@ def temperatureCallback(handle, data):
      #print(struct.unpack('<f', data))
     acc = int.from_bytes(data, byteorder='little', signed=True)/100
     x_df = pd.DataFrame([acc])
-    x_df.to_csv('acc_test1.csv', mode='a', index=False, header=False)
+
+    x_df.to_csv('acc_test19.csv', mode='a', index=False, header=False)
+    
     print(acc)
 
 async def main():
@@ -51,7 +53,7 @@ async def main():
     
     #Sleep i 3s
     
-    await asyncio.sleep(10) # hur länge den kör.
+    await asyncio.sleep(15) # hur länge den kör.
     #Stoppa notify "servicen"
     await client.stop_notify(charachteristicID)
     #await client.stop_notify(charachteristicID1)
