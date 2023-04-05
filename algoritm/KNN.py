@@ -76,7 +76,7 @@ print("Accuracy:",metrics.accuracy_score(y_test, predict_y))
 label_to_wax_df = pd.read_csv('algoritm/label_to_wax.csv', names=['Label', 'Wax'])
 
 def predict(X):
-    X = numpy.array([X])
+    X = np.array([X])
     y = KNN.predict(X)
     ind = y[0].argsort()[-3:][::-1]
     print(ind)
@@ -88,7 +88,7 @@ def predict(X):
 
     return wax
 
-print(predict([1,-7]))
+print(predict([1,-5]))
 #snowtemp = list(data['Snötemperatur:'])
 #print(snowtemp)
 #snowtype = list(data['Snötyp:'])
