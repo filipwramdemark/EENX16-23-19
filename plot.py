@@ -1,9 +1,7 @@
 import matplotlib.pyplot as plt
 import pandas as pd
-import scipy.integrate as it
-import statistics
 
-acc = pd.read_csv('acc_test19.csv', header=None).values.tolist()
+acc = pd.read_csv('acc_test6.csv', header=None).values.tolist()
 
 x_acc = []
 y_acc = []
@@ -19,15 +17,13 @@ for i in range(len(acc)):
             z_acc.append(acc[i][0])
 
 plt.figure("x_acc")
-plt.title("x acceleration")
+plt.xlabel("Datapunkt")
+plt.ylabel("Acceleration (g m/s^2)")
 plt.plot(x_acc)
 
-plt.figure("y_acc")
-plt.title("y acceleration")
-plt.plot(y_acc)
-
 plt.figure("z_acc")
-plt.title("z acceleration")
+plt.xlabel("Datapunkt")
+plt.ylabel("Acceleration (g m/s^2)")
 plt.plot(z_acc)
 
 plt.show()
