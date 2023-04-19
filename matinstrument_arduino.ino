@@ -41,13 +41,10 @@ void setup() {
 
   BLE.setLocalName("TempAndHumData");
   BLE.setAdvertisedService(SendData);
-  //BLE.setAdvertisedService(SendData2);
 
   SendData.addCharacteristic(tempAndHum);
-  //SendData2.addCharacteristic(tempAIR);
 
   BLE.addService(SendData);
-  //BLE.addService(SendData2);
 
   BLE.advertise();
   Serial.println("Waiting for connection...");
@@ -85,7 +82,6 @@ void loop() {
     tempAndHum.writeValue(temp_SNOW);
     tempAndHum.writeValue(snowHumidity.getHumidity());
 
-    //Loopa igenom varje variabel och advertisa dem en åt gången?
     
     delay(500);
   }
@@ -114,7 +110,7 @@ void loop() {
     }
     delay(1000);
 
-  //Serial.println("Central disconnected");
+  Serial.println("Central disconnected");
 
 
 }
