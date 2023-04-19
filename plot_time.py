@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 import pandas as pd
 
-data = pd.read_csv('test.csv', header=None).values.tolist()
+data = pd.read_csv('tests/sim_case1/test3.csv', header=None).values.tolist()
 
 x_acc = []
 y_acc = []
