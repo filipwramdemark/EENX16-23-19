@@ -4,6 +4,7 @@ import algoritm.DecisionTree.Tree_Predict as tree
 import algoritm.SVM.SVM_predict as SVM
 import pandas as pd
 
+
 snow_to_label_df = pd.read_csv("algoritm/snow_to_label.csv", names=["Snow", "Label"])
 
 snow_types_df = snow_to_label_df["Snow"]

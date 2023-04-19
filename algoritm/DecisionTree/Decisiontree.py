@@ -279,4 +279,4 @@ def eval():
 
 # eval()
 
-pickle.dump(tree, open('algoritm/DecisionTree/Decision_Tree.pickle', "wb"))
+pickle.dump(tree, open('algoritm/DecisionTree/Decision_Tree.sav', "wb"))
