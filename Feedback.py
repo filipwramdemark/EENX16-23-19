@@ -4,7 +4,10 @@ data = [0,1, 1]
 
 def savefeedback(da):
     feedback =  {'Snötyp:': [da[0]], 'Snötemperatur:': [da[1]], 'Valla (Label)': [da[2]]}
-    testdata = pd.DataFrame.from_dict(feedback)
+    data = pd.DataFrame.from_dict(feedback)
+    old = pd.read_csv('algoritm/Valladata_prep.csv')
+    frames = [old,data]
+    testdata =  pd.concat(frames)
     datatoexcel = pd.ExcelWriter('algoritm/Feedback.xlsx')
     testdata.to_excel(datatoexcel)
     datatoexcel.save()
