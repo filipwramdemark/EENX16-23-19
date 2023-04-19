@@ -4,6 +4,7 @@ from bleak import BleakClient
 from bleak import BleakScanner
 import struct
 import pandas as pd
+import time
 
 
 #ID för arduinons service
@@ -18,9 +19,9 @@ def temperatureCallback(handle, data):
     #print(data)
      #print(struct.unpack('<f', data))
     acc = int.from_bytes(data, byteorder='little', signed=True)/100
-    x_df = pd.DataFrame([acc])
+    df = pd.DataFrame(list(zip([acc], [time.time()])))
 
-    x_df.to_csv('acc_test19.csv', mode='a', index=False, header=False)
+    df.to_csv('test.csv', mode='a', index=False, header=False)
     
     print(acc)
 
