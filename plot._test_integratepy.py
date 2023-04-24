@@ -39,8 +39,9 @@ x_comp = []
 # for idx in range(len(x_acc)):
 #     x_acc[idx] = x_acc[idx] - new_average
 acc_comp = []
-for a in range(45):
-    acc_comp.append(x_acc[a])
+for a in x_acc:
+    if (a <0.1) and (a >-0.1):
+        acc_comp.append(a)
 
 # average = sum(acc_comp)/ len(acc_comp)
 average = mode(acc_comp)
