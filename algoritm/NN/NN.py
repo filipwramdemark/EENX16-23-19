@@ -7,7 +7,7 @@ from keras.layers import Conv2D, MaxPooling2D
 from sklearn.model_selection import train_test_split
 
 # read the data
-data = pd.read_csv('algoritm/Valladatamer_prep.csv')
+data = pd.read_csv('algoritm/Valladata_full_prep.csv')
 data = data.dropna(axis='columns')
 
 # split into training and test set
@@ -40,7 +40,7 @@ epochs = 20
 
 # define the model
 model = Sequential()
-model.add(Dense(64, activation = 'relu', input_shape=(2,)))
+model.add(Dense(64, activation = 'relu', input_shape=(5,)))
 model.add(Dense(32, activation = 'relu'))
 model.add(Dense(num_classes, activation='softmax'))
 

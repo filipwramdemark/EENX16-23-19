@@ -6,7 +6,7 @@ from sklearn.svm import SVC
 from sklearn.model_selection import train_test_split
 
 # read the data
-data = pd.read_csv('algoritm/Valladatamer_prep.csv')
+data = pd.read_csv('algoritm/Valladata_full_prep.csv')
 data = data.dropna(axis='columns')
 
 # split into training and test set

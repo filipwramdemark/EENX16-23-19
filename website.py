@@ -15,8 +15,6 @@ snow = {snow_to_label["Label"][i] : snow_to_label["Snow"][i] for i in range(len(
 
 waxes = pd.read_csv("algoritm/label_to_wax.csv").iloc[:,1].to_list()
 
-print(waxes)
-
 app = Flask(__name__)
 
 @app.route("/", methods=["GET", "POST"])
