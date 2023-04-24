@@ -34,5 +34,3 @@ pickle.dump(model, open('algoritm/SVM/SVM_model/svm_model.sav', 'wb'))
 pred_labels = model.predict(test_features)
 
 acc = accuracy_score(test_labels, pred_labels)
-
-print('Accuracy:', acc)
