@@ -3,6 +3,7 @@ import algoritm.NN.NN_predict as NN
 import algoritm.DecisionTree.Tree_Predict as tree
 import algoritm.SVM.SVM_predict as SVM
 import pandas as pd
+import matinstrumentClientSide
 
 
 snow_to_label_df = pd.read_csv("algoritm/snow_to_label.csv", names=["Snow", "Label"])
@@ -39,13 +40,10 @@ def snow_types(snow_type : int):
     #                            label_SVM1=wax_SVM[0], label_SVM2=wax_SVM[1], label_SVM3=wax_SVM[2])
     # else:
     #     return 404
-    input = [0,0,0,0,0]
-    wax_NN = NN.predict(input)
-    wax_tree = tree.Treepredict(input)
-    wax_SVM = SVM.predict(input)
 
-    return render_template("label.html", snow_type=snow_type, label_NN1=wax_NN[0], label_NN2=wax_NN[1], label_NN3=wax_NN[2], label_tree=wax_tree, 
-                            label_SVM1=wax_SVM[0], label_SVM2=wax_SVM[1], label_SVM3=wax_SVM[2])
+    return render_template("input.html", snow_type=snow_type)
+
+ 
 
 
 @app.route("/snowtypes/<snow_type>/feedback", methods=["GET", "POST"])
@@ -61,6 +59,30 @@ def wax(snow_type : int):
     elif request.method == "POST":
         wax = request.form["wax"]
         return render_template("done.html")
+
+@app.route("/snowtypes/<snow_type>/input", methods=["GET", "POST"])
+def input(snow_type :int): 
+    return render_template("wait.html", snow_type=snow_type)
+
+@app.route("/snowtypes/<snow_type>/input/wait", methods=["GET", "POST"])
+def wait(snow_type : int):
+
+    matinstrumentClientSide.getData()
+    temp_and_hum = pd.read_csv("tempAndHum.csv", header=None).values.tolist()
+
+    for i in range(len(temp_and_hum)):
+        temp_and_hum[i] = temp_and_hum[i][0]
+
+    input = [int(snow_type)] + temp_and_hum
+
+
+    wax_NN = NN.predict(input)
+    wax_tree = tree.Treepredict(input)
+    wax_SVM = SVM.predict(input)
+
+    return render_template("label.html", snow_type=snow_type, label_NN1=wax_NN[0], label_NN2=wax_NN[1], label_NN3=wax_NN[2], label_tree=wax_tree, 
+                            label_SVM1=wax_SVM[0], label_SVM2=wax_SVM[1], label_SVM3=wax_SVM[2])
+
 
 @app.route("/done")
 def done():

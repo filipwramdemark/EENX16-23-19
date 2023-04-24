@@ -22,7 +22,7 @@ def tempSNOWCallback(handle, data):
   print(data)
 
   tempAndHum_df.to_csv(FILENAME, mode="a", index=False, header=False)
-  #Data kommer i ordningen: lufttemperature, luftfuktighet, snötemperatur, snöfuktighet
+  #Data kommer i ordningen: snötemperatur, snöfuktighet, lufttemperatur, luftfuktighet
 
   if(data == 1000):
     file = open(FILENAME, "w")
@@ -58,7 +58,9 @@ async def main():
     await client.start_notify(tempSNOW_ID, tempSNOWCallback)
     #await client.start_notify(tempAIR_ID, tempAIRCallback)
     #Sleep i x antal ms
-    await asyncio.sleep(60)
+    await asyncio.sleep(5)
 
+def getData():
+  asyncio.run(main())
 
-asyncio.run(main())
+getData()
