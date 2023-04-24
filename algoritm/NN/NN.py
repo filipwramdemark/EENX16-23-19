@@ -25,7 +25,6 @@ for df in [train_features, test_features]:
 
     df['Snötyp:'] = df['Snötyp:'] * 10
 
-print(train_features)
 
 train_features = np.asarray(train_features).astype(np.float32)
 test_features = np.asarray(test_features).astype(np.float32)
