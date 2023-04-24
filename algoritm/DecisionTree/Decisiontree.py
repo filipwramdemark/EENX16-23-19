@@ -6,7 +6,7 @@ import graphics as gp
 from sklearn import metrics
 import matplotlib.pyplot as plt
 
-data = pd.read_csv('algoritm/Valladatamer_prep.csv')
+data = pd.read_csv('algoritm/Valladata_full_prep.csv')
 data = data.dropna(axis='columns')                      #Getting the data format
 # print(data) 
 train, test = train_test_split(data, test_size = 0.2, shuffle = True) #splitting the data into training data
