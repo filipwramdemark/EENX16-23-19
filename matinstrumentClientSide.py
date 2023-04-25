@@ -62,5 +62,3 @@ async def main():
 
 def getData():
   asyncio.run(main())
-
-getData()

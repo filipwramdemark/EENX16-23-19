@@ -44,7 +44,25 @@ def snow_types(snow_type : int):
     return render_template("input.html", snow_type=snow_type)
 
  
+@app.route("/snowtypes/<snow_type>/temp", methods=["GET", "POST"])
+def temp(snow_type : int):
+    if request.method == "GET":
+        return render_template("temp.html", snow_type=snow_type)
+    elif request.method == "POST":
+        T = float(request.form["temp"])
 
+        input = [int(snow_type), T, 0, 0, 0]
+
+        wax_NN = NN.predict(input)
+        wax_tree = tree.Treepredict(input)
+        wax_SVM = SVM.predict(input)
+
+        return render_template("label.html", snow_type=snow_type, label_NN1=wax_NN[0], label_NN2=wax_NN[1], label_NN3=wax_NN[2], label_tree=wax_tree, 
+                               label_SVM1=wax_SVM[0], label_SVM2=wax_SVM[1], label_SVM3=wax_SVM[2])
+    else:
+        return 404
+
+    return render_template("input.html", snow_type=snow_type)
 
 @app.route("/snowtypes/<snow_type>/feedback", methods=["GET", "POST"])
 def feedback(snow_type : int):
