@@ -63,7 +63,7 @@ void loop() {
       //Skicka datan
         //SendCharacteristic.writeValue(x, y, z);
         SendCharacteristic.writeValue(x*100);
-        SendCharacteristic.writeValue(y*100);
+        // SendCharacteristic.writeValue(y*100);
         SendCharacteristic.writeValue(z*100);
     }
 
