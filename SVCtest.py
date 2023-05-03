@@ -18,7 +18,7 @@ df = []
 david = [1,2,3,7,8,9,13,14,15,19,20,21,25,26,27,31,31,33]
 nora = [4,5,6,10,11,12,16,17,18,22,23,24,28,29,30,34,35,36]
 # for idx in range(1, 37):
-for idx in nora:
+for idx in david:
     if idx <=18:
         label =True
     else: 
@@ -36,18 +36,31 @@ for idx in nora:
             
             else: 
                 z_acc.append(data[i][0])
-    for a in range(len(x_acc)-1):
+    a = 0
+    fst = 0
+    scnd = 0
+    while a < (len(x_acc)-1):
         if x_acc[a] > 3.5:
-        
-        
-            if len(df) > 0:
-            # data= {'x_acc': [x_acc], 'z_acc': [z_acc], 'Label': [label]}
-                tempdf = pd.DataFrame([label]+x_acc[a-25:a+25]).T
-                frames = [df,tempdf]
-                df = pd.concat(frames)
-            else:
-            # data = {'x_acc': [x_acc], 'z_acc': [z_acc], 'Label': [label]}
-                df = pd.DataFrame([label]+x_acc[a-25:a+25]).T
+            if fst == 0:
+                fst = a
+                a += 6
+            elif scnd == 0:
+                scnd = a
+                
+
+                if len(df) > 0:
+                # data= {'x_acc': [x_acc], 'z_acc': [z_acc], 'Label': [label]}
+                    tempdf = pd.DataFrame([label]+x_acc[fst:scnd]).T
+                    frames = [df,tempdf]
+                    df = pd.concat(frames)
+                else:
+                # data = {'x_acc': [x_acc], 'z_acc': [z_acc], 'Label': [label]}
+                    df = pd.DataFrame([label]+x_acc[fst:scnd]).T
+                fst = scnd
+                scnd = 0
+                a+=6
+        else:
+            a+=1
 
             # x_delta.append(x_acc[a+1]-x_acc[a])
             # z_delta.append(z_acc[a+1]-z_acc[a])
