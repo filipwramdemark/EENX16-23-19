@@ -23,8 +23,6 @@ for df in [train_features, test_features]:
     for col in train_features.columns:
         df[col] = df[col] / df[col].abs().max()
 
-    df['Snötyp:'] = df['Snötyp:'] * 10
-
 
 train_features = np.asarray(train_features).astype(np.float32)
 test_features = np.asarray(test_features).astype(np.float32)
