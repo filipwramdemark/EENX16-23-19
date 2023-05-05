@@ -109,7 +109,7 @@ def wait(snow_type : int):
 @app.route("/snowtypes/<snow_type>/feedback/eval/<wax>", methods=["GET", "POST"])
 def eval(snow_type : int, wax : int):
 
-    accelorometer.getAccData()
+    # accelorometer.getAccData()
     
     if dataAnalys.testData():
         temp_and_hum = pd.read_csv("tempAndHum.csv", header=None).values.tolist()

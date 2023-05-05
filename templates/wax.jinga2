@@ -17,7 +17,7 @@
             </div>
             <br>
             <br>
-            <input type="submit" value="Lämna feedback" class="waxbutton">
+            <input type="submit" value="Välja valla" class="waxbutton">
         </form>
         <script>
             // insperation from 
