@@ -6,11 +6,6 @@ import pickle
 from sklearn import metrics
 import matplotlib.pyplot as plt
 
-data = pd.read_csv('algoritm/Valladata_full_prep.csv')
-data = data.dropna(axis='columns')                      #Getting the data format
-# print(data) 
-train, test = train_test_split(data, test_size = 0.2, shuffle = True) #splitting the data into training data
-# train = data
 label_to_wax_df = pd.read_csv('algoritm/label_to_wax.csv', names=['Label', 'Wax']) 
 
 
@@ -252,11 +247,21 @@ class TreeNode():
         self.child_nodes.append(ch_1)
 
         return self
-    
-tree = TreeNode() # create root node
-tree.learn(train, "Valla (Label)", min_node_size=10)
+
+def trainTree():
+    data = pd.read_csv('algoritm/Feedback.csv')
+    data = data.dropna(axis='columns')                      #Getting the data format
+    # print(data) 
+    train, test = train_test_split(data, test_size = 0.2, shuffle = True) #splitting the data into training data
+    # train = data
+
+    tree = TreeNode() # create root node
+    tree.learn(train, "Valla (Label)", min_node_size=10)
+    pickle.dump(tree, open('algoritm/DecisionTree/Decision_Tree.sav', "wb"))
+
 labels = []
 preds = []
+
 def eval():
     y = test['Valla (Label)']
     x = test.drop(columns='Valla (Label)')
@@ -279,4 +284,3 @@ def eval():
 
 # eval()
 
-pickle.dump(tree, open('algoritm/DecisionTree/Decision_Tree.sav', "wb"))

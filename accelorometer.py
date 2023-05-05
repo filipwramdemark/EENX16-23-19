@@ -21,9 +21,9 @@ def temperatureCallback(handle, data):
     acc = int.from_bytes(data, byteorder='little', signed=True)/100
     df = pd.DataFrame(list(zip([acc], [time.time()])))
 
-    df.to_csv('tests/test2/test36.csv', mode='a', index=False, header=False)
+    df.to_csv('accData.csv', mode='a', index=False, header=False)
     
-    print(acc)
+    # print(acc)
 
 async def main():
   devices = await BleakScanner.discover()
@@ -61,4 +61,7 @@ async def main():
     #await client.stop_notify(charachteristicID2)
 
 
-asyncio.run(main())
+
+def getAccData():
+  pd.DataFrame().to_csv("accData.csv", index=False, header=False)
+  asyncio.run(main())

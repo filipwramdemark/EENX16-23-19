@@ -5,14 +5,14 @@ import pandas as pd
 def savefeedback(da):
     feedback =  {'Snötyp:': [da[0]], 'Snötemperatur:': [da[1]], 'Valla (Label)': [da[2]], 'Fuktighet snö:': [da[3]], 'Temperatur luft:' : [da[4]] , 'Luftfuktighet:': [da[5]]}
     data = pd.DataFrame.from_dict(feedback)
-    old = pd.read_csv('algoritm/Feedback.xlsx')
+    old = pd.read_csv('algoritm/Feedback.csv')
     frames = [old,data]
     testdata =  pd.concat(frames)
-    datatoexcel = pd.ExcelWriter('algoritm/Feedback.xlsx')
-    testdata.to_excel(datatoexcel)
-    datatoexcel.save()
+    testdata.to_csv('algoritm/Feedback.csv', index=False)
+    # testdata.to_excel(datatoexcel)
+    # datatoexcel.save()
     print('complete')
-    return
+
 
 # savefeedback(data)
 # old = pd.read_csv('algoritm/Valladata_full_prep.csv')
