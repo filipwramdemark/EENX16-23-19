@@ -21,6 +21,10 @@ waxes = pd.read_csv("algoritm/label_to_wax.csv", header=None).iloc[:,1].to_list(
 labels = pd.read_csv("algoritm/label_to_wax.csv", header=None).iloc[:,0].to_list()
 wax_to_label = {waxes[i] : labels[i] for i in range(len(waxes))}
 
+NN_model.trainNN()
+SVM_model.trainSVM()
+tree_model.trainTree()
+
 app = Flask(__name__)
 
 @app.route("/", methods=["GET", "POST"])
@@ -85,7 +89,7 @@ def feedback(snow_type : int):
 @app.route("/snowtypes/<snow_type>/input", methods=["GET", "POST"])
 def wait(snow_type : int):
 
-    matinstrumentClientSide.getData()
+    # matinstrumentClientSide.getData()
     temp_and_hum = pd.read_csv("tempAndHum.csv", header=None).values.tolist()
 
     for i in range(len(temp_and_hum)):
@@ -105,7 +109,7 @@ def wait(snow_type : int):
 @app.route("/snowtypes/<snow_type>/feedback/eval/<wax>", methods=["GET", "POST"])
 def eval(snow_type : int, wax : int):
 
-    # accelorometer.getAccData()
+    accelorometer.getAccData()
     
     if dataAnalys.testData():
         temp_and_hum = pd.read_csv("tempAndHum.csv", header=None).values.tolist()
