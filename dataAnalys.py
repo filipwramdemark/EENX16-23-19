@@ -57,7 +57,7 @@ def testData():
     y1 = np.polyval(p1, x1)
     # plt.plot(x1, y1, 'r', linewidth=3)
 
-    offset = 1.5
+    offset = 1.7
 
 
     # plt.plot(x1, y1 + offset, '--b', linewidth=1.5)
