@@ -1,8 +1,6 @@
 import asyncio
-import sys
 from bleak import BleakClient
 from bleak import BleakScanner
-import struct
 import pandas as pd
 import time
 
@@ -52,16 +50,15 @@ async def main():
 
     await client.start_notify(charachteristicID, temperatureCallback)
     
-    #Sleep i 3s
     
-    await asyncio.sleep(20) # hur länge den kör.
+    await asyncio.sleep(30) # hur länge den kör.
     #Stoppa notify "servicen"
     await client.stop_notify(charachteristicID)
-    #await client.stop_notify(charachteristicID1)
-    #await client.stop_notify(charachteristicID2)
+
 
 
 
 def getAccData():
-  pd.DataFrame().to_csv("accData.csv", index=False, header=False)
+  # clear the data file
+  pd.DataFrame().to_csv("data/accData.csv", index=False, header=False)
   asyncio.run(main())
