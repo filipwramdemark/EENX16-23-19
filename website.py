@@ -90,7 +90,7 @@ def feedback(snow_type : int):
 def wait(snow_type : int):
 
     # matinstrumentClientSide.getData()
-    temp_and_hum = pd.read_csv("tempAndHum.csv", header=None).values.tolist()
+    temp_and_hum = pd.read_csv("data/tempAndHum.csv", header=None).values.tolist()
 
     for i in range(len(temp_and_hum)):
         temp_and_hum[i] = temp_and_hum[i][0]
@@ -112,7 +112,7 @@ def eval(snow_type : int, wax : int):
     # accelorometer.getAccData()
     
     if dataAnalys.testData():
-        temp_and_hum = pd.read_csv("tempAndHum.csv", header=None).values.tolist()
+        temp_and_hum = pd.read_csv("data/tempAndHum.csv", header=None).values.tolist()
 
         for i in range(len(temp_and_hum)):
             temp_and_hum[i] = temp_and_hum[i][0]

@@ -21,7 +21,7 @@ def temperatureCallback(handle, data):
     acc = int.from_bytes(data, byteorder='little', signed=True)/100
     df = pd.DataFrame(list(zip([acc], [time.time()])))
 
-    df.to_csv('accData.csv', mode='a', index=False, header=False)
+    df.to_csv('data/accData.csv', mode='a', index=False, header=False)
     
     # print(acc)
 

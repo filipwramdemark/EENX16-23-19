@@ -5,7 +5,7 @@ from scipy.signal import find_peaks
 
 def testData():
 
-    testfile = "accData.csv"
+    testfile = "data/accData.csv"
 
     data = pd.read_csv(testfile, header=None).values.tolist()
 
@@ -74,4 +74,4 @@ def testData():
             # plt.plot(curveFitTime[i], curveFit[i], 'x', markersize=5, linewidth=1.5)
 
     percentage = count1 / len(curveFit)
-    return(percentage < 0.2)
+    return(percentage < 0.15)

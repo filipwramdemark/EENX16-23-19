@@ -1,8 +1,8 @@
 %%
 clear
 
-testfile = "Tester2/test17.csv";
-testfile2 = "Tester2/test35.csv";
+testfile = "tests/test2/test17.csv";
+testfile2 = "tests/test2/test35.csv";
 
 data = [];
 data2 = [];

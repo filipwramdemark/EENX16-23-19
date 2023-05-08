@@ -9,7 +9,7 @@ import pandas as pd
 tempSNOW_ID = '19B10001-E8F2-537E-4F6C-D104768A1214'
 tempAIR_ID = '19B10002-E8F2-537E-4F6C-D104768A1214'
 serviceID = "19B10000-E8F2-537E-4F6C-D104768A1214"
-FILENAME = "tempAndHum.csv"
+FILENAME = "data/tempAndHum.csv"
 
 def tempAIRCallback(handle, data):
   print("Air temperature: ", int.from_bytes(data, byteorder='little', signed=True))
