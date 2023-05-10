@@ -6,3 +6,7 @@ Mappen "algoritm" innehåller filer för de olika algoritmerna samt .csv-filer s
 
 Mappen "tests" innehåller insamlad data från tester samt .py-filer för att skapa plotter av datan.
 
+Mappen "ardunio" innehåller kod skriver för Arduino
+
+Mappen "data" innehåller den senast insamlade datan från accelerometern och mätinstrumentet
+
