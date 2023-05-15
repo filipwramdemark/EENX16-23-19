@@ -1,14 +1,15 @@
 %%
 clear
 
-testfile = "tests/test2/test17.csv";
-testfile2 = "tests/test2/test35.csv";
+%Välj testfil att testa
+a = 36; %Lämplig valla
+b = 18; %Ej lämplig valla
 
 data = [];
 data2 = [];
 
-
-for i = 19:36
+%Lämplig valla (test 19-36)
+for i = a:a
     baseString = "Tester2/test";
     num = num2str(i);
     filename = append(baseString, num, ".csv");
@@ -16,7 +17,8 @@ for i = 19:36
     data = [data; load(filename)];
 end
 
-for i = 1:18
+%Ej lämplig valla (test 1-18)
+for i = b:b
     baseString = "Tester2/test";
     num = num2str(i);
     filename2 = append(baseString, num, ".csv");
@@ -64,31 +66,39 @@ for i = 0:(length(data2) - 1)
     end
 end
 
-[peaks, location] = findpeaks(x_data, "MinPeakHeight", 3.9);
-[peaks2, location2] = findpeaks(x_data2, "MinPeakHeight", 3.9);
+[peaks, location] = findpeaks(x_data, "MinPeakHeight", 3.8);
+[peaks2, location2] = findpeaks(x_data2, "MinPeakHeight", 3.8);
 
 figure(1);
 subplot(2, 1, 1);
 plot(x_time, x_data);
-title(testfile);
+title("Lämplig valla");
+xlabel("Tid [s]");
+ylabel("Antal g [m/s^2]");
 hold on;
 plot(x_time(location), peaks, 'o');
 
 subplot(2, 1, 2);
 plot(x_time2, x_data2);
-title(testfile2);
+title("Ej lämplig valla");
+xlabel("Tid [s]");
+ylabel("Antal g [m/s^2]");
 hold on;
 plot(x_time2(location2), peaks2, 'o');
 
 
-figure(2);
+
+
+figure(3);
 hold on;
 grid on;
 axis([-10 30 -4 5]);
 subplot(1, 2, 1);
 hold on;
 grid on;
-title("Bra valla");
+title("Lämplig valla");
+xlabel("Antal datapunkter")
+ylabel("Antal g [m/s^2]");
 
 curveFit = [];
 curveFitTime = [];
@@ -124,24 +134,24 @@ count1 = 0;
 for i = 1:length(curveFit)
     if(curveFit(i) < (polyval(p1, curveFitTime(i)) - offset))
         count1 = count1 + 1;
-        plot(curveFitTime(i), curveFit(i), 'x', "MarkerSize", 5, "Linewidth", 1.5);
+        plot(curveFitTime(i), curveFit(i), 'x', "MarkerSize", 7, "Linewidth", 1.7);
     elseif(curveFit(i) > (polyval(p1, curveFitTime(i)) + offset))
         count1 = count1 + 1;
-        plot(curveFitTime(i), curveFit(i), 'x', "MarkerSize", 5, "Linewidth", 1.5);
+        plot(curveFitTime(i), curveFit(i), 'x', "MarkerSize", 7, "Linewidth", 1.7);
     end
 end
 
 percentage1 = count1 ./ length(curveFit);
 
-disp("Data 1 percentage of data points outside off offset: ");
+disp("Data 1 (Lämplig) percentage of data points outside off offset: ");
 disp(percentage1 * 100 + " %");
-
-
 
 subplot(1, 2, 2);
 hold on;
 grid on;
-title("Dålig valla");
+title("Ej lämplig valla");
+xlabel("Antal datapunkter")
+ylabel("Antal g [m/s^2]");
 
 curveFit = 0;
 curveFitTime = 0;
@@ -162,31 +172,31 @@ for a = 1:length(location2)
 end
 
 %plot(curveFitTime, curveFit, '.');
-%p2 = polyfit(curveFitTime, curveFit, 6);
+p2 = polyfit(curveFitTime, curveFit, 6);
 
 x1 = linspace(min(curveFitTime), max(curveFitTime), 1000);
-%y1 = polyval(p2, x1);
-plot(x1, y1, 'r', "LineWidth", 3);
+y2 = polyval(p2, x1);
+plot(x1, y2, 'r', "LineWidth", 3);
 hold on;
 
-plot(x1, y1 + offset, '--b', "LineWidth", 1.5);
-plot(x1, y1 - offset, '--b', "LineWidth", 1.5);
+plot(x1, y2 + offset, '--b', "LineWidth", 1.5);
+plot(x1, y2 - offset, '--b', "LineWidth", 1.5);
 
 count2 = 0;
 
 for i = 1:length(curveFit)
-    if(curveFit(i) < (polyval(p1, curveFitTime(i)) - offset))
+    if(curveFit(i) < (polyval(p2, curveFitTime(i)) - offset))
         count2 = count2 + 1;
-        plot(curveFitTime(i), curveFit(i), 'x', "MarkerSize", 5, "Linewidth", 1.5);
-    elseif(curveFit(i) > (polyval(p1, curveFitTime(i)) + offset))
+        plot(curveFitTime(i), curveFit(i), 'x', "MarkerSize", 7, "Linewidth", 1.7);
+    elseif(curveFit(i) > (polyval(p2, curveFitTime(i)) + offset))
         count2 = count2 + 1;
-        plot(curveFitTime(i), curveFit(i), 'x', "MarkerSize", 5, "Linewidth", 1.5);
+        plot(curveFitTime(i), curveFit(i), 'x', "MarkerSize", 7, "Linewidth", 1.7);
     end
 end
 
 percentage2 = count2 ./ length(curveFit);
 
-disp("Data 2 percentage of data points outside off offset: ");
+disp("Data 2 (Ej lämpl percentage of data points outside off offset: ");
 disp(percentage2 * 100 + " %");
     
 
